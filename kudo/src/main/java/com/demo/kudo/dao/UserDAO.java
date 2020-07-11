@@ -36,9 +36,10 @@ public class UserDAO implements IUserDAO {
 	public User getUser(int theId) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
-
+			
+		System.out.println("Session gained");
 		User theUser = currentSession.get(User.class, theId);
-		
+		System.out.println(theUser);
 		return theUser;
 	}
 	

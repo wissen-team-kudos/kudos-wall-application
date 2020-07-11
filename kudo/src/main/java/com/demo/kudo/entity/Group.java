@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="groups")
+@Table(name="groups_of_user")
 public class Group {
 
 	@Id

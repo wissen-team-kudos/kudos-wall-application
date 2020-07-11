@@ -30,6 +30,15 @@ public class User {
 	
 	@Column(name="password")
 	String password;
+	
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(
+			name = "users_kudos",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "kudo_id")
+			)
+	@JsonIgnoreProperties(value = {"users"})
+	private List<Kudos> kudos;
 
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(name="users_groups",
@@ -91,6 +100,22 @@ public class User {
 			groups.add(group);
 
 		this.setGroups(groups);
+	}
+	
+	public List<Kudos> getKudos() {
+		return kudos;
+	}
+
+	public void setKudos(List<Kudos> kudos) {
+		this.kudos = kudos;
+	}
+	
+	public void addKudo(Kudos kudo) {
+		if(kudos == null) {
+			kudos = new ArrayList<>();
+		}
+		
+		kudos.add(kudo);
 	}
 	
 	@Override
