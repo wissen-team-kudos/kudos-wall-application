@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.kudo.dao.KudosDAO;
 import com.demo.kudo.entity.Kudos;
+import com.demo.kudo.entity.User;
 import com.demo.kudo.service.KudosService;
 
 @RestController
@@ -40,8 +41,10 @@ public class KudosController {
 	@PostMapping("/kudos")
 	public Kudos addKudos(@RequestBody Kudos kudos) {
 		kudos.setId(0);
-		kudosService.saveKudos(kudos);
-		
+		Kudos returnKudo = kudosService.saveKudos(kudos);
+		if(returnKudo == null) {
+			throw new RuntimeException("Author id is invalid");
+		}
 		return kudos;
 	}
 	

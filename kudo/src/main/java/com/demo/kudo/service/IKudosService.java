@@ -8,7 +8,7 @@ public interface IKudosService {
 	
 	public List<Kudos> getKudos();
 	
-	public void saveKudos(Kudos theKudos);
+	public Kudos saveKudos(Kudos theKudos);
 	
 	public Kudos getKudos(int theId);
 	

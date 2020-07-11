@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.kudo.entity.Kudos;
+import com.demo.kudo.entity.User;
 
 @Repository
 public class KudosDAO implements IKudosDAO {
@@ -29,10 +30,29 @@ public class KudosDAO implements IKudosDAO {
 	}
 
 	@Override
-	public void saveKudos(Kudos theKudos) {
+	public Kudos saveKudos(Kudos theKudos) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
-		currentSession.saveOrUpdate(theKudos);
+		
+		Kudos kudosToInsert = new Kudos();
+		int authorId = theKudos.getAuthor().getId();
+		User author = currentSession.get(User.class, authorId);
+		if(author == null) {
+			return null;
+		}
+		if(theKudos.getUsers() != null) {
+			for(User user : theKudos.getUsers()) {
+				User viewer = currentSession.get(User.class, user.getId());
+				kudosToInsert.addUser(viewer);
+			}
+		}
+		kudosToInsert.setId(theKudos.getId());
+		kudosToInsert.setContent(theKudos.getContent());
+		kudosToInsert.setAuthor(author);
+		
+		
+		currentSession.saveOrUpdate(kudosToInsert);
+		return kudosToInsert;
 	}
 
 	@Override

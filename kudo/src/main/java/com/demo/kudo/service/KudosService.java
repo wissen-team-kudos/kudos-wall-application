@@ -23,8 +23,8 @@ public class KudosService implements IKudosService {
 
 	@Override
 	@Transactional
-	public void saveKudos(Kudos theKudos) {
-		kudosDAO.saveKudos(theKudos);
+	public Kudos saveKudos(Kudos theKudos) {
+		return kudosDAO.saveKudos(theKudos);
 	}
 
 	@Override
