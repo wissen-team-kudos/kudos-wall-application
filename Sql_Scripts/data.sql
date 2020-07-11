@@ -3,7 +3,7 @@ insert into users values
 	(2,'user2','pass2'),
 	(3,'user3','pass3');
 
-insert into `groups` values
+insert into `groups_of_user` values
 	(1,'group1','group1'),
 	(2,'group2','group2');
 
