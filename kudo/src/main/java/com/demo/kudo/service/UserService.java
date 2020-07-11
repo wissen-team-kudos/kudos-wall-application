@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.kudo.dao.UserDAO;
+import com.demo.kudo.entity.Group;
 import com.demo.kudo.entity.User;
 
 @Service
@@ -37,6 +38,13 @@ public class UserService implements IUserService {
 		 userDAO.saveUser(theUser);	
 	}
 
+	//@Override
+	@Transactional
+	public User saveUserWithGroup(int userId,Group group) {
+		
+		 return userDAO.saveUserWithGroup(userId,group);	
+	}
+	
 	@Override
 	@Transactional
 	public void deleteUser(int theId) {

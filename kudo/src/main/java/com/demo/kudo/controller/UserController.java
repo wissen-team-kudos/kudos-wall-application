@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.kudo.entity.Group;
 import com.demo.kudo.entity.User;
+import com.demo.kudo.service.GroupService;
 import com.demo.kudo.service.UserService;
 
 @RestController
@@ -22,6 +23,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private GroupService groupService;
 	
 	@GetMapping("/users")
 	public List<User> getUsers() {
@@ -32,7 +36,13 @@ public class UserController {
 	@GetMapping("/users/{userId}")
 	public User getUser(@PathVariable int userId) {
 		
-		return userService.getUser(userId);
+		User user = userService.getUser(userId);
+		
+		if(user == null) {
+			throw new UserNotFoundException("User id not found - " + userId);
+		}
+		
+		return user;
 	}
 	
 	@PostMapping("/users")
@@ -52,8 +62,22 @@ public class UserController {
 		return user;
 	}
 	
+	@PutMapping("/users/group/{userId}/{groupId}")
+	public User updateGrouptoUser(@PathVariable int userId, @PathVariable int groupId) {
+				
+		Group group = groupService.getGroup(groupId);
+		User user=userService.saveUserWithGroup(userId,group);
+		
+		return user;
+	}
+	
 	@DeleteMapping("/users/{userId}")
 	public String deleteUser(@PathVariable int userId) {
+		
+		User user = userService.getUser(userId);
+		if(user == null) {
+			throw new UserNotFoundException("User ID not found - " + userId);
+		}
 		
 		userService.deleteUser(userId);
 		

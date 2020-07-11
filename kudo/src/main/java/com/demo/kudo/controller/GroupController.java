@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.User;
 import com.demo.kudo.service.GroupService;
 
 @RestController
@@ -31,7 +32,13 @@ public class GroupController {
 	@GetMapping("/groups/{groupId}")
 	public Group getGroup(@PathVariable int groupId) {
 		
-		return groupService.getGroup(groupId);
+		Group group = groupService.getGroup(groupId);
+		
+		if(group == null) {
+			throw new UserNotFoundException("Group ID not found - " + groupId);
+		}
+		
+		return group;
 	}
 	
 	@PostMapping("/groups")
@@ -53,6 +60,11 @@ public class GroupController {
 	
 	@DeleteMapping("/groups/{groupId}")
 	public String deleteGroup(@PathVariable int groupId) {
+		
+		Group group = groupService.getGroup(groupId);
+		if(group == null) {
+			throw new UserNotFoundException("Group ID not found - " + groupId);
+		}
 		
 		groupService.deleteGroup(groupId);
 		
