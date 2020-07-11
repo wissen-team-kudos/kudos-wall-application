@@ -31,11 +31,11 @@ public class Group {
 	String password;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinTable(name="users_groups",
+	@JoinTable(name="groups_kudos",
 				joinColumns = @JoinColumn(name="group_id"),
-				inverseJoinColumns = @JoinColumn(name="user_id"))	
-	@JsonIgnoreProperties(value = {"groups"}) // to prevent serialization of data
-	private List<User> users;
+				inverseJoinColumns = @JoinColumn(name="kudo_id"))	
+	@JsonIgnoreProperties(value = {"kudos"}) // to prevent serialization of data
+	private List<Kudos> kudos;
 	
 	public Group() {
 		
@@ -71,12 +71,12 @@ public class Group {
 		this.password = password;
 	}
 	
-	public List<User> getUsers() {
-		return users;
+	public List<Kudos> getKudos() {
+		return kudos;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setUsers(List<Kudos> kudos) {
+		this.kudos = kudos;
 	}
 
 	@Override
@@ -85,3 +85,4 @@ public class Group {
 	}
 	
 }
+
