@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.demo.kudo.entity.Group;
 import com.demo.kudo.entity.User;
 
 @Repository
@@ -49,6 +50,18 @@ public class UserDAO implements IUserDAO {
 		currentSession.saveOrUpdate(theUser);	
 	}
 
+	public User saveUserWithGroup(int theId,Group group) {
+
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		User theUser = currentSession.get(User.class, theId);
+		theUser.addGroup(group);
+
+		currentSession.saveOrUpdate(theUser);	
+		
+		return theUser;
+	}
+	
 	@Override
 	public void deleteUser(int theId) {
 
