@@ -87,7 +87,9 @@ public class User {
 		if(groups==null)
 			groups=new ArrayList<Group>();
 		
-		groups.add(group);
+		if(!groups.contains(group))
+			groups.add(group);
+
 		this.setGroups(groups);
 	}
 	

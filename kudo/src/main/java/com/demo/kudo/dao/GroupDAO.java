@@ -24,7 +24,7 @@ public class GroupDAO implements IGroupDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Query theQuery = 
-				currentSession.createQuery("from Group order by groupname",
+				currentSession.createQuery("from Group order by id",
 											Group.class);
 		
 		List<Group> groups = theQuery.getResultList();

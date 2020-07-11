@@ -66,6 +66,10 @@ public class UserController {
 	public User updateGrouptoUser(@PathVariable int userId, @PathVariable int groupId) {
 				
 		Group group = groupService.getGroup(groupId);
+		if(group == null) {
+			throw new UserNotFoundException("Group ID not found - " + groupId);
+		}
+		
 		User user=userService.saveUserWithGroup(userId,group);
 		
 		return user;

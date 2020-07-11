@@ -24,7 +24,7 @@ public class UserDAO implements IUserDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Query theQuery = 
-				currentSession.createQuery("from User order by username",
+				currentSession.createQuery("from User order by id",
 											User.class);
 		
 		List<User> users = theQuery.getResultList();
