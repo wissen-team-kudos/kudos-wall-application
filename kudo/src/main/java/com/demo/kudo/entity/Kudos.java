@@ -56,12 +56,12 @@ public class Kudos {
 	public Kudos() {
 		
 	}
-	public List<Groups> getGroups(){
+	public List<Group> getGroups(){
 		return groups;
 	}    
 
-	public void setGroups(List<Groups> groups){
-		this.groups=groups
+	public void setGroups(List<Group> groups){
+		this.groups=groups;
 	}
 	public Kudos(String content) {
 		this.content = content;
