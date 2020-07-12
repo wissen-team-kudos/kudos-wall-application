@@ -107,7 +107,7 @@ public class Kudos {
 	}
 	
 	public void addGroup(Group grp) {
-		if(grp == null) {
+		if(groups == null) {
 			groups= new ArrayList<>();
 		}
 		groups.add(grp);
