@@ -98,10 +98,10 @@ public class Group {
 	}
 
 	public void addUser(User user) {
-		if(users == null) {
-			users = new ArrayList<User>();
+		if(this.users == null) {
+			this.users = new ArrayList<User>();
 		}
-		users.add(user);
+		this.users.add(user);
 	}
 	
 	public void addKudos(Kudos kudos) {

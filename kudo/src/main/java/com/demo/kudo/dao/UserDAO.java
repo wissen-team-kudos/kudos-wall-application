@@ -63,6 +63,7 @@ public class UserDAO implements IUserDAO {
 				userToInsert.addGroup(persistentGroup);
 			}
 		}
+		
 		userToInsert.setId(theUser.getId());
 		userToInsert.setUsername(theUser.getUsername());
 		userToInsert.setPassword(theUser.getPassword());
