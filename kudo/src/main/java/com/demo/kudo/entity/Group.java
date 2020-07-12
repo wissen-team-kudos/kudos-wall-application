@@ -37,6 +37,16 @@ public class Group {
 	@JsonIgnoreProperties(value = {"groups"}) // to prevent serialization of data
 	private List<User> users;
 	
+	
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(
+			name="groups_kudos",
+			joinColumns = @JoinColumn(name="group_id"),
+			inverseJoinColumns = @JoinColumn(name="kudo_id")
+			)	
+	@JsonIgnoreProperties(value = {"kudos"})
+	private List<Kudos> kudos;
+
 	public Group() {
 		
 	}
@@ -46,7 +56,14 @@ public class Group {
 		this.groupname = groupname;
 		this.password = password;
 	}
-
+	public List<Kudos> getKudos(){
+		return kudos;
+	}
+	
+	public void setKudos(List<Kudos> kudos){
+		this.kudos=kudos;
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -43,17 +43,26 @@ public class Kudos {
 	@JsonIgnoreProperties(value = {"kudos"})
 	private List<User> users;//users who can view this kudo
 	
+	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinTable(name="groups_kudos",
-				joinColumns = @JoinColumn(name="kudo_id"),
-				inverseJoinColumns = @JoinColumn(name="group_id"))	
+	@JoinTable(
+			name="groups_kudos",
+			joinColumns = @JoinColumn(name="kudo_id"),
+			inverseJoinColumns = @JoinColumn(name="group_id")
+			)	
 	@JsonIgnoreProperties(value = {"kudos"})
 	private List<Group> groups;
-
+	
 	public Kudos() {
 		
 	}
+	public List<Groups> getGroups(){
+		return groups;
+	}    
 
+	public void setGroups(List<Groups> groups){
+		this.groups=groups
+	}
 	public Kudos(String content) {
 		this.content = content;
 	}
