@@ -99,7 +99,6 @@ public class User {
 		if(!groups.contains(group))
 			groups.add(group);
 
-		this.setGroups(groups);
 	}
 	
 	public List<Kudos> getKudos() {

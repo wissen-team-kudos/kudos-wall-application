@@ -49,9 +49,7 @@ public class GroupDAO implements IGroupDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Group groupToInsert = new Group();
-		groupToInsert.setId(theGroup.getId());
-		groupToInsert.setGroupname(theGroup.getGroupname());
-		groupToInsert.setPassword(theGroup.getPassword());
+		
 		if(theGroup.getUsers()!=null) {
 			for(User user : theGroup.getUsers()) {
 				User member = currentSession.get(User.class, user.getId());
@@ -64,8 +62,12 @@ public class GroupDAO implements IGroupDAO {
 				groupToInsert.addKudos(kudosToInsert);
 			}
 		}
+
+		groupToInsert.setId(theGroup.getId());
+		groupToInsert.setGroupname(theGroup.getGroupname());
+		groupToInsert.setPassword(theGroup.getPassword());
 		
-		currentSession.saveOrUpdate(theGroup);	
+		currentSession.saveOrUpdate(groupToInsert);	
 		return groupToInsert;
 	}
 

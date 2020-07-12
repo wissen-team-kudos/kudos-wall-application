@@ -53,6 +53,7 @@ public class KudosDAO implements IKudosDAO {
 				kudosToInsert.addGroup(persistentGroup);
 			}
 		}
+		
 		kudosToInsert.setId(theKudos.getId());
 		kudosToInsert.setContent(theKudos.getContent());
 		kudosToInsert.setAuthor(author);
