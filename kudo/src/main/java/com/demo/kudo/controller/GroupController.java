@@ -45,17 +45,15 @@ public class GroupController {
 	public Group addGroup(@RequestBody Group group) {
 		
 		group.setId(0);
-		groupService.saveGroup(group);
-		
-		return group;
+		return groupService.saveGroup(group);
+
 	}
 
 	@PutMapping("/groups")
 	public Group updateGroup(@RequestBody Group group) {
 		
-		groupService.saveGroup(group);
-		
-		return group;
+		return groupService.saveGroup(group);
+
 	}
 	
 	@DeleteMapping("/groups/{groupId}")

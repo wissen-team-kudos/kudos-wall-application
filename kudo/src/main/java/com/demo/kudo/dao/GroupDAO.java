@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.Kudos;
 import com.demo.kudo.entity.User;
 
 @Repository
@@ -43,11 +44,29 @@ public class GroupDAO implements IGroupDAO {
 	}
 
 	@Override
-	public void saveGroup(Group theGroup) {
+	public Group saveGroup(Group theGroup) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
-
+		
+		Group groupToInsert = new Group();
+		groupToInsert.setId(theGroup.getId());
+		groupToInsert.setGroupname(theGroup.getGroupname());
+		groupToInsert.setPassword(theGroup.getPassword());
+		if(theGroup.getUsers()!=null) {
+			for(User user : theGroup.getUsers()) {
+				User member = currentSession.get(User.class, user.getId());
+				groupToInsert.addUser(member);
+			}
+		}
+		if(theGroup.getKudos()!=null) {
+			for(Kudos kudos : theGroup.getKudos()) {
+				Kudos kudosToInsert = currentSession.get(Kudos.class, kudos.getId());
+				groupToInsert.addKudos(kudosToInsert);
+			}
+		}
+		
 		currentSession.saveOrUpdate(theGroup);	
+		return groupToInsert;
 	}
 
 	@Override

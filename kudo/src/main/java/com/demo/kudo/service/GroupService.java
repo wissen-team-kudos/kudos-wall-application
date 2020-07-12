@@ -34,9 +34,9 @@ public class GroupService implements IGroupService {
 	
 	@Override
 	@Transactional
-	public void saveGroup(Group theGroup) {
+	public Group saveGroup(Group theGroup) {
 		
-		groupDAO.saveGroup(theGroup);
+		return groupDAO.saveGroup(theGroup);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.demo.kudo.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -96,6 +97,20 @@ public class Group {
 		this.users = users;
 	}
 
+	public void addUser(User user) {
+		if(users == null) {
+			users = new ArrayList<User>();
+		}
+		users.add(user);
+	}
+	
+	public void addKudos(Kudos kudos) {
+		if(this.kudos == null) {
+			this.kudos = new ArrayList<>();
+		}
+		this.kudos.add(kudos);
+	}
+	
 	@Override
 	public String toString() {
 		return "Group [id=" + id + ", groupname=" + groupname + ", password=" + password + "]";
