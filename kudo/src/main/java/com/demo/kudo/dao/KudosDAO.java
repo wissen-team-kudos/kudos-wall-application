@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.demo.kudo.entity.Group;
 import com.demo.kudo.entity.Kudos;
 import com.demo.kudo.entity.User;
 
@@ -44,6 +45,12 @@ public class KudosDAO implements IKudosDAO {
 			for(User user : theKudos.getUsers()) {
 				User viewer = currentSession.get(User.class, user.getId());
 				kudosToInsert.addUser(viewer);
+			}
+		}
+		if(theKudos.getGroups()!=null) {
+			for(Group group : theKudos.getGroups()) {
+				Group persistentGroup = currentSession.get(Group.class, group.getId());
+				kudosToInsert.addGroup(persistentGroup);
 			}
 		}
 		kudosToInsert.setId(theKudos.getId());
