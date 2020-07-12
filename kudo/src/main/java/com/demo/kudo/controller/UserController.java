@@ -49,17 +49,13 @@ public class UserController {
 	public User addUser(@RequestBody User user) {
 		
 		user.setId(0);
-		userService.saveUser(user);
-		
-		return user;
+		return userService.saveUser(user);
 	}
 
 	@PutMapping("/users")
 	public User updateUser(@RequestBody User user) {
 				
-		userService.saveUser(user);
-		
-		return user;
+		return userService.saveUser(user);
 	}
 	
 	@PutMapping("/users/group/{userId}/{groupId}")

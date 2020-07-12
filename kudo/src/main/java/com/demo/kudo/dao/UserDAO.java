@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.Kudos;
 import com.demo.kudo.entity.User;
 
 @Repository
@@ -44,11 +45,30 @@ public class UserDAO implements IUserDAO {
 	}
 	
 	@Override
-	public void saveUser(User theUser) {
-
+	public User saveUser(User theUser) {
+		
 		Session currentSession = entityManager.unwrap(Session.class);
+		
+		User userToInsert = new User();
 
-		currentSession.saveOrUpdate(theUser);	
+		if(theUser.getKudos() != null) {
+			for(Kudos kudos : theUser.getKudos()) {
+				Kudos viewer = currentSession.get(Kudos.class, kudos.getId());
+				userToInsert.addKudo(viewer);
+			}
+		}
+		if(theUser.getGroups()!=null) {
+			for(Group group : theUser.getGroups()) {
+				Group persistentGroup = currentSession.get(Group.class, group.getId());
+				userToInsert.addGroup(persistentGroup);
+			}
+		}
+		userToInsert.setId(theUser.getId());
+		userToInsert.setUsername(theUser.getUsername());
+		userToInsert.setPassword(theUser.getPassword());
+		
+		currentSession.saveOrUpdate(userToInsert);
+		return userToInsert;
 	}
 
 	public User saveUserWithGroup(int theId,Group group) {

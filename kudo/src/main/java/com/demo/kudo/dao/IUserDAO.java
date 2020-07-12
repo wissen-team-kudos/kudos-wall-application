@@ -9,7 +9,7 @@ public interface IUserDAO {
 
 	public List<User> getUsers();
 
-	public void saveUser(User theUser);
+	public User saveUser(User theUser);
 
 	public User getUser(int theId);
 
