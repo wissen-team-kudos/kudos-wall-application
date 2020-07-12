@@ -45,13 +45,12 @@ public class KudosController {
 		if(returnKudo == null) {
 			throw new RuntimeException("Author id is invalid");
 		}
-		return kudos;
+		return returnKudo;
 	}
 	
 	@PutMapping("/kudos")
 	public Kudos updateKudos(@RequestBody Kudos kudos) {
-		kudosService.saveKudos(kudos);
-		return kudos;
+		return kudosService.saveKudos(kudos);
 	}
 	
 	@DeleteMapping("/kudos/{kudosId}")
