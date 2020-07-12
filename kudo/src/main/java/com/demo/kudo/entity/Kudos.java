@@ -1,5 +1,6 @@
 package com.demo.kudo.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,24 +12,36 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="kudos")
+@Table(name = "kudos")
 public class Kudos {
-
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	int id;
+	private int id;
 	
 	@Column(name="content")
-	String content;
+	private String content;
 	
-	@Column(name="uid")
-	int uid;
+	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinColumn(name="user_id")
+	@JsonIgnoreProperties(value = {"kudos"})
+	private User author;
+	
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(
+			name = "users_kudos",
+			joinColumns = @JoinColumn(name = "kudo_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+			)
+	@JsonIgnoreProperties(value = {"kudos"})
+	private List<User> users;//users who can view this kudo
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(name="groups_kudos",
@@ -36,15 +49,13 @@ public class Kudos {
 				inverseJoinColumns = @JoinColumn(name="group_id"))	
 	@JsonIgnoreProperties(value = {"kudos"})
 	private List<Group> groups;
-	
+
 	public Kudos() {
 		
 	}
 
-	public Kudos(int id, String content, int uid) {
-		this.id = id;
+	public Kudos(String content) {
 		this.content = content;
-		this.uid = uid;
 	}
 
 	public int getId() {
@@ -55,34 +66,45 @@ public class Kudos {
 		this.id = id;
 	}
 
-	public String getKudosContent() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setKudosContent(String content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
-	public int getUID() {
-		return uid;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setUID(int uid) {
-		this.uid = uid;
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 	
-	public List<Group> getGroups() {
-		return groups;
+	public void addUser(User user) {
+		if(users == null) {
+			users = new ArrayList<>();
+		}
+		users.add(user);
 	}
-
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "Kudos [id=" + id + ", content=" + content + ", uid=" + uid + "]";
+		return "Kudos [id=" + id + ", content=" + content + ", author=" + author + ", users=" + users + "]";
 	}
+
+	
+	
+	
 	
 }
-

@@ -2,7 +2,6 @@ package com.demo.kudo.service;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,30 +18,25 @@ public class KudosService implements IKudosService {
 	@Override
 	@Transactional
 	public List<Kudos> getKudos() {
-		
 		return kudosDAO.getKudos();
 	}
 
 	@Override
 	@Transactional
-	public Kudos getKudo(int theId) {
-		
-		return kudosDAO.getKudo(theId);
-	}
-	
-	@Override
-	@Transactional
-	public void saveKudo(Kudos theKudo) {
-		
-		kudosDAO.saveKudo(theKudo);
+	public Kudos saveKudos(Kudos theKudos) {
+		return kudosDAO.saveKudos(theKudos);
 	}
 
 	@Override
 	@Transactional
-	public void deleteKudo(int theId) {
+	public Kudos getKudos(int theId) {
+		return kudosDAO.getKudos(theId);
+	}
 
-		kudosDAO.deleteKudo(theId);
+	@Override
+	@Transactional
+	public void deleteKudos(int theId) {
+		kudosDAO.deleteKudos(theId);
 	}
 
 }
-

@@ -3,13 +3,15 @@ package com.demo.kudo.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.kudo.entity.Kudos;
+import com.demo.kudo.entity.User;
 
 @Repository
 public class KudosDAO implements IKudosDAO {
@@ -19,46 +21,53 @@ public class KudosDAO implements IKudosDAO {
 	
 	@Override
 	public List<Kudos> getKudos() {
-	
+		
 		Session currentSession = entityManager.unwrap(Session.class);
+		Query<Kudos> query = currentSession.createQuery("from Kudos", Kudos.class);
+		List<Kudos> kudos = query.getResultList();
 		
-		Query theQuery = 
-				currentSession.createQuery("from Kudos order by id",
-											Kudos.class);
-		
-		List<Kudos> kudos = theQuery.getResultList();
-
 		return kudos;
 	}
+
 	@Override
-	public Kudos getKudo(int theId) {
-
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		Kudos theKudo = currentSession.get(Kudos.class, theId);
+	public Kudos saveKudos(Kudos theKudos) {
 		
-		return theKudo;
-	}
-	
-	@Override
-	public void saveKudo(Kudos theKudo) {
-
 		Session currentSession = entityManager.unwrap(Session.class);
-
-		currentSession.saveOrUpdate(theKudo);	
-	}
-
-	@Override
-	public void deleteKudo(int theId) {
-
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		Query theQuery = 
-				currentSession.createQuery("delete from Kudos where id=:Id");
 		
-		theQuery.setParameter("Id", theId);
-		theQuery.executeUpdate();	
+		Kudos kudosToInsert = new Kudos();
+		int authorId = theKudos.getAuthor().getId();
+		User author = currentSession.get(User.class, authorId);
+		if(author == null) {
+			return null;
+		}
+		if(theKudos.getUsers() != null) {
+			for(User user : theKudos.getUsers()) {
+				User viewer = currentSession.get(User.class, user.getId());
+				kudosToInsert.addUser(viewer);
+			}
+		}
+		kudosToInsert.setId(theKudos.getId());
+		kudosToInsert.setContent(theKudos.getContent());
+		kudosToInsert.setAuthor(author);
+		
+		
+		currentSession.saveOrUpdate(kudosToInsert);
+		return kudosToInsert;
+	}
+
+	@Override
+	public Kudos getKudos(int theId) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		Kudos kudos = currentSession.get(Kudos.class, theId);
+		return kudos;
+	}
+
+	@Override
+	public void deleteKudos(int theId) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		Query query = currentSession.createQuery("delete from Kudos where id=:kudosId");
+		query.setParameter("kudosId", theId);
+		query.executeUpdate();
 	}
 
 }
-

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="groups")
+@Table(name="groups_of_user")
 public class Group {
 
 	@Id
@@ -31,11 +31,11 @@ public class Group {
 	String password;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinTable(name="groups_kudos",
+	@JoinTable(name="users_groups",
 				joinColumns = @JoinColumn(name="group_id"),
-				inverseJoinColumns = @JoinColumn(name="kudo_id"))	
-	@JsonIgnoreProperties(value = {"kudos"}) // to prevent serialization of data
-	private List<Kudos> kudos;
+				inverseJoinColumns = @JoinColumn(name="user_id"))	
+	@JsonIgnoreProperties(value = {"groups"}) // to prevent serialization of data
+	private List<User> users;
 	
 	public Group() {
 		
@@ -71,12 +71,12 @@ public class Group {
 		this.password = password;
 	}
 	
-	public List<Kudos> getKudos() {
-		return kudos;
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public void setUsers(List<Kudos> kudos) {
-		this.kudos = kudos;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	@Override
@@ -85,4 +85,3 @@ public class Group {
 	}
 	
 }
-
