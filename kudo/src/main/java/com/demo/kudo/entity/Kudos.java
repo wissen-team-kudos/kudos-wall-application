@@ -31,7 +31,7 @@ public class Kudos {
 	
 	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name="user_id")
-	@JsonIgnoreProperties(value = {"kudos"})
+	@JsonIgnoreProperties(value = {"kudos", "groups"})
 	private User author;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -40,7 +40,7 @@ public class Kudos {
 			joinColumns = @JoinColumn(name = "kudo_id"),
 			inverseJoinColumns = @JoinColumn(name = "user_id")
 			)
-	@JsonIgnoreProperties(value = {"kudos"})
+	@JsonIgnoreProperties(value = {"kudos", "groups"})
 	private List<User> users;//users who can view this kudo
 	
 	
@@ -50,7 +50,7 @@ public class Kudos {
 			joinColumns = @JoinColumn(name="kudo_id"),
 			inverseJoinColumns = @JoinColumn(name="group_id")
 			)	
-	@JsonIgnoreProperties(value = {"kudos"})
+	@JsonIgnoreProperties(value = {"kudos", "users"})
 	private List<Group> groups;
 	
 	public Kudos() {
@@ -104,6 +104,13 @@ public class Kudos {
 			users = new ArrayList<>();
 		}
 		users.add(user);
+	}
+	
+	public void addGroup(Group grp) {
+		if(grp == null) {
+			groups= new ArrayList<>();
+		}
+		groups.add(grp);
 	}
 	
 

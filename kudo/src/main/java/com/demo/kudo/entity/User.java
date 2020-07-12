@@ -37,14 +37,14 @@ public class User {
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "kudo_id")
 			)
-	@JsonIgnoreProperties(value = {"users"})
+	@JsonIgnoreProperties(value = {"users", "groups"})
 	private List<Kudos> kudos;
 
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(name="users_groups",
 				joinColumns = @JoinColumn(name="user_id"),
 				inverseJoinColumns = @JoinColumn(name="group_id"))	
-	@JsonIgnoreProperties(value = {"users"}) // to prevent serialization of data
+	@JsonIgnoreProperties(value = {"users", "kudos"}) // to prevent serialization of data
 	private List<Group> groups;
 	
 	public User() {

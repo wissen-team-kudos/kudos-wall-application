@@ -34,7 +34,7 @@ public class Group {
 	@JoinTable(name="users_groups",
 				joinColumns = @JoinColumn(name="group_id"),
 				inverseJoinColumns = @JoinColumn(name="user_id"))	
-	@JsonIgnoreProperties(value = {"groups"}) // to prevent serialization of data
+	@JsonIgnoreProperties(value = {"groups", "kudos"}) // to prevent serialization of data
 	private List<User> users;
 	
 	
@@ -44,7 +44,7 @@ public class Group {
 			joinColumns = @JoinColumn(name="group_id"),
 			inverseJoinColumns = @JoinColumn(name="kudo_id")
 			)	
-	@JsonIgnoreProperties(value = {"kudos"})
+	@JsonIgnoreProperties(value = {"kudos", "groups"})
 	private List<Kudos> kudos;
 
 	public Group() {
