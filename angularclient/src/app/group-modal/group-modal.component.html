@@ -1,0 +1,26 @@
+<button class="btn btn-lg btn-outline-primary float-right" (click)="open(content)">Join Group</button>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Group Data</h4>
+      <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f)" >
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Group Name:</label>
+            <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name">
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Group Password:</label>
+            <input type="password" class="form-control" name="password" ngModel #password="ngModel" id="password">
+        </div>
+            <div class="modal-footer">
+                <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
