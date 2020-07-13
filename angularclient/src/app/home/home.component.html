@@ -1,0 +1,19 @@
+<nav ngbNav #nav="ngbNav" class="nav-tabs nav-fill">
+    <ng-container ngbNavItem >
+        <a ngbNavLink (click)="showKudos()">Home</a>
+        <ng-template ngbNavContent>
+            <p>Show the list of Kudos in all User's Groups</p>
+            <p *ngFor="let kudo of kudos" >{{kudo}}</p>
+        </ng-template>
+    </ng-container> 
+    <ng-container ngbNavItem>
+        <a ngbNavLink (click)="showGroups()">Groups</a>
+        <ng-template ngbNavContent>
+            <button type="button" class="btn btn-primary float-right" id="join">Join group</button>  
+            <p>Show the list of Groups of the User</p>
+            <p *ngFor="let group of groups" >{{group}}</p>    
+        </ng-template>
+    </ng-container>
+</nav>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
