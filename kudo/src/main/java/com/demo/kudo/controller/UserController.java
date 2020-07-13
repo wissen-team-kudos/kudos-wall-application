@@ -49,17 +49,13 @@ public class UserController {
 	public User addUser(@RequestBody User user) {
 		
 		user.setId(0);
-		userService.saveUser(user);
-		
-		return user;
+		return userService.saveUser(user);
 	}
 
 	@PutMapping("/users")
 	public User updateUser(@RequestBody User user) {
 				
-		userService.saveUser(user);
-		
-		return user;
+		return userService.saveUser(user);
 	}
 	
 	@PutMapping("/users/group/{userId}/{groupId}")
@@ -67,7 +63,7 @@ public class UserController {
 				
 		Group group = groupService.getGroup(groupId);
 		if(group == null) {
-			throw new UserNotFoundException("Group ID not found - " + groupId);
+			throw new GroupNotFoundException("Group ID not found - " + groupId);
 		}
 		
 		User user=userService.saveUserWithGroup(userId,group);

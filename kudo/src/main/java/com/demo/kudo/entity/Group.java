@@ -1,5 +1,6 @@
 package com.demo.kudo.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,9 +35,19 @@ public class Group {
 	@JoinTable(name="users_groups",
 				joinColumns = @JoinColumn(name="group_id"),
 				inverseJoinColumns = @JoinColumn(name="user_id"))	
-	@JsonIgnoreProperties(value = {"groups"}) // to prevent serialization of data
+	@JsonIgnoreProperties(value = {"groups", "kudos"}) // to prevent serialization of data
 	private List<User> users;
 	
+	
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(
+			name="groups_kudos",
+			joinColumns = @JoinColumn(name="group_id"),
+			inverseJoinColumns = @JoinColumn(name="kudo_id")
+			)	
+	@JsonIgnoreProperties(value = {"kudos", "groups"})
+	private List<Kudos> kudos;
+
 	public Group() {
 		
 	}
@@ -46,7 +57,14 @@ public class Group {
 		this.groupname = groupname;
 		this.password = password;
 	}
-
+	public List<Kudos> getKudos(){
+		return kudos;
+	}
+	
+	public void setKudos(List<Kudos> kudos){
+		this.kudos=kudos;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -79,6 +97,20 @@ public class Group {
 		this.users = users;
 	}
 
+	public void addUser(User user) {
+		if(this.users == null) {
+			this.users = new ArrayList<User>();
+		}
+		this.users.add(user);
+	}
+	
+	public void addKudos(Kudos kudos) {
+		if(this.kudos == null) {
+			this.kudos = new ArrayList<>();
+		}
+		this.kudos.add(kudos);
+	}
+	
 	@Override
 	public String toString() {
 		return "Group [id=" + id + ", groupname=" + groupname + ", password=" + password + "]";

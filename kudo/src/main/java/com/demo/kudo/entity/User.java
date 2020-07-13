@@ -30,12 +30,21 @@ public class User {
 	
 	@Column(name="password")
 	String password;
+	
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(
+			name = "users_kudos",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "kudo_id")
+			)
+	@JsonIgnoreProperties(value = {"users", "groups"})
+	private List<Kudos> kudos;
 
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(name="users_groups",
 				joinColumns = @JoinColumn(name="user_id"),
 				inverseJoinColumns = @JoinColumn(name="group_id"))	
-	@JsonIgnoreProperties(value = {"users"}) // to prevent serialization of data
+	@JsonIgnoreProperties(value = {"users", "kudos"}) // to prevent serialization of data
 	private List<Group> groups;
 	
 	public User() {
@@ -90,7 +99,22 @@ public class User {
 		if(!groups.contains(group))
 			groups.add(group);
 
-		this.setGroups(groups);
+	}
+	
+	public List<Kudos> getKudos() {
+		return kudos;
+	}
+
+	public void setKudos(List<Kudos> kudos) {
+		this.kudos = kudos;
+	}
+	
+	public void addKudo(Kudos kudo) {
+		if(kudos == null) {
+			kudos = new ArrayList<>();
+		}
+		
+		kudos.add(kudo);
 	}
 	
 	@Override

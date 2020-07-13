@@ -8,7 +8,7 @@ public interface IGroupService {
 
 	public List<Group> getGroups();
 
-	public void saveGroup(Group theGroup);
+	public Group saveGroup(Group theGroup);
 
 	public Group getGroup(int theId);
 

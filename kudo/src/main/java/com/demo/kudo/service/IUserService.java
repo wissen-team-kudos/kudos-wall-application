@@ -8,7 +8,7 @@ public interface IUserService {
 
 	public List<User> getUsers();
 
-	public void saveUser(User theCustomer);
+	public User saveUser(User theUser);
 
 	public User getUser(int theId);
 
