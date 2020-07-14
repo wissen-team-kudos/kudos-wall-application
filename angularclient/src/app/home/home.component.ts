@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SampleGroupService } from '../sample-group.service';
-import { SampleKudoService } from '../sample-kudo.service';
+import { SampleGroupService } from '../dummy-services/sample-group.service';
+import { SampleKudoService } from '../dummy-services/sample-kudo.service';
 
 @Component({
   selector: 'home',

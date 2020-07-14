@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
-import { SampleGroupService } from '../sample-group.service';
+import { SampleGroupService } from '../dummy-services/sample-group.service';
 
 @Component({
   selector: 'group-modal',

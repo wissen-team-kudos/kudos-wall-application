@@ -9,8 +9,8 @@ import { NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { GroupModalComponent } from './group-modal/group-modal.component';
 import { FormsModule } from "@angular/forms";
 import { KudoModalComponent } from './kudo-modal/kudo-modal.component';
-import { SampleGroupService } from './sample-group.service';
-import { SampleKudoService } from './sample-kudo.service';
+import { SampleGroupService } from './dummy-services/sample-group.service';
+import { SampleKudoService } from './dummy-services/sample-kudo.service';
 
 @NgModule({
   declarations: [

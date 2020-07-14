@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
-import { SampleKudoService } from '../sample-kudo.service';
+import { SampleKudoService } from '../dummy-services/sample-kudo.service';
 
 @Component({
   selector: 'kudo-modal',
