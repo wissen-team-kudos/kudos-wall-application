@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  currentJustify='fill'
   clicked=false;
   kudos=[];
-  groups=[];
+  rooms=[];
   constructor() {
     this.kudos=["kudo1","kudo2","kudo3"];
    }
@@ -22,9 +23,14 @@ export class HomeComponent implements OnInit {
     console.log(this.kudos)
   }
 
-  showGroups(){
+  showRooms(){
     this.clicked=true;
-    this.groups=["group1","group2","group3"];
-    console.log(this.groups)
+    this.rooms=["room1","room2","room3","room4"];
+    console.log(this.rooms)
+  }
+
+  addRooms(room){
+    this.rooms.push(room);
+    console.log(this.rooms);
   }
 }

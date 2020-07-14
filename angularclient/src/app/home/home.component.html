@@ -1,24 +1,58 @@
 <nav ngbNav #nav="ngbNav" class="nav-tabs nav-fill">
     <ng-container ngbNavItem >
-        <a ngbNavLink (click)="showKudos()">Home</a>
+        <a ngbNavLink (click)="showKudos()">Wall</a>
         <ng-template ngbNavContent>
-            <p>Show the list of Kudos in all User's Groups</p>
+            <p>Show the list of Kudos in all User's Rooms</p>
             <p *ngFor="let kudo of kudos" >{{kudo}}</p>
         </ng-template>
     </ng-container> 
     <ng-container ngbNavItem>
-        <a ngbNavLink (click)="showGroups()">Groups</a>
+        <a ngbNavLink (click)="showRooms()">Rooms</a>
         <ng-template ngbNavContent>
-            <group-modal></group-modal>
-            <p>Show the list of Groups of the User</p>
-            <p *ngFor="let group of groups" >{{group}}</p>    
+          <div class="container">
+            <div class="row">
+              <div class="col-8">
+                <div class="row row-cols-1 row-cols-md-2">
+                  <div *ngFor="let room of rooms" class="col mb-4">
+                    <div class="card" style="width: 18rem;">
+                      <!-- <img src="..." class="card-img-top" alt="..."> -->
+                      <div class="card-body">
+                        <h5 class="card-title">{{room}}</h5>
+                        <p class="card-text">Room details</p>
+                        <kudo-modal></kudo-modal>
+                        <a href="#" class="btn btn-link">Share Room</a>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">              
+                <group-modal></group-modal>
+              </div>
+            </div>
+
+              <!-- <group-modal></group-modal>
+              <div class="row row-cols-1 row-cols-md-2">
+                <div *ngFor="let room of rooms" class="col mb-4">
+                  <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{room}}</h5>
+                      <p class="card-text">Room details</p>
+                      <a href="#" class="btn btn-primary">Send Kudos</a>
+                      <a href="#" class="btn btn-link">Share Room</a>
+                    </div>
+                  </div>  
+                </div>
+              </div> -->
+            </div>
         </ng-template>
     </ng-container>
 </nav>
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -45,4 +79,21 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+
+  <!-- <ngb-tabset [justify]="currentJustify">
+    <ngb-tab title="Wall">
+      <ng-template ngbTabContent>
+        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
+        master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
+        dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
+        iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="Rooms">
+      <ng-template ngbTabContent>
+        <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset> -->

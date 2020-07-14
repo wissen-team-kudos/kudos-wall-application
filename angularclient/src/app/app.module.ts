@@ -8,13 +8,15 @@ import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { GroupModalComponent } from './group-modal/group-modal.component';
 import { FormsModule } from "@angular/forms";
+import { KudoModalComponent } from './kudo-modal/kudo-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     BsNavbarComponent,
-    GroupModalComponent
+    GroupModalComponent,
+    KudoModalComponent
   ],
   imports: [
     BrowserModule,

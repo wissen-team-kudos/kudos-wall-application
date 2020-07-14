@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
-import { HomeComponent } from '../home/home.component';
 
 @Component({
-  selector: 'group-modal',
-  templateUrl: './group-modal.component.html',
-  styleUrls: ['./group-modal.component.css']
+  selector: 'kudo-modal',
+  templateUrl: './kudo-modal.component.html',
+  styleUrls: ['./kudo-modal.component.css']
 })
-export class GroupModalComponent {
+export class KudoModalComponent implements OnInit {
   closeResult = '';
-  home:HomeComponent;
-  constructor(private modalService: NgbModal) {}
+
+  constructor(private modalService: NgbModal) { }
+
+  ngOnInit(): void {
+  }
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -35,6 +36,5 @@ export class GroupModalComponent {
   onSubmit(form: NgForm){
     var room = form.value.name;
     console.log(room);
-    this.home.addRooms(room);
   }
 }
