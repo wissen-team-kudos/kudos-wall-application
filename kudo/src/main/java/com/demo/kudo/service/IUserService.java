@@ -11,6 +11,8 @@ public interface IUserService {
 	public User saveUser(User theUser);
 
 	public User getUser(int theId);
+	
+	public User getUser(String username);
 
 	public void deleteUser(int theId);
 }
