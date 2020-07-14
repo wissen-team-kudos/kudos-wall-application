@@ -95,6 +95,14 @@ public class UserDAO implements IUserDAO {
 		theQuery.setParameter("userId", theId);
 		theQuery.executeUpdate();	
 	}
+
+	@Override
+	public User getUser(String username) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		Query query = currentSession.createQuery("FROM User WHERE username=:paramUsername");
+		query.setParameter("paramUsername", username);
+		return (User)query.getSingleResult();
+	}
 	
 	
 

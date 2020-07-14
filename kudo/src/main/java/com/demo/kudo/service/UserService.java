@@ -52,4 +52,11 @@ public class UserService implements IUserService {
 		userDAO.deleteUser(theId);
 	}
 
+	@Override
+	@Transactional
+	public User getUser(String username) {
+		return userDAO.getUser(username);
+		
+	}
+
 }
