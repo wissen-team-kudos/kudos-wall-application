@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
-import { HomeComponent } from '../home/home.component';
+import { SampleGroupService } from '../sample-group.service';
 
 @Component({
   selector: 'group-modal',
@@ -11,8 +11,8 @@ import { HomeComponent } from '../home/home.component';
 })
 export class GroupModalComponent {
   closeResult = '';
-  home:HomeComponent;
-  constructor(private modalService: NgbModal) {}
+
+  constructor(private modalService: NgbModal, private sampleGroupService: SampleGroupService) {}
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -33,8 +33,8 @@ export class GroupModalComponent {
   }
 
   onSubmit(form: NgForm){
+
     var room = form.value.name;
-    console.log(room);
-    this.home.addRooms(room);
+    this.sampleGroupService.addRoom(room);
   }
 }

@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
+import { SampleKudoService } from '../sample-kudo.service';
 
 @Component({
   selector: 'kudo-modal',
   templateUrl: './kudo-modal.component.html',
   styleUrls: ['./kudo-modal.component.css']
 })
+
 export class KudoModalComponent implements OnInit {
   closeResult = '';
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private sampleService: SampleKudoService) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +36,8 @@ export class KudoModalComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
+
     var room = form.value.name;
-    console.log(room);
+    this.sampleService.addKudo(room);
   }
 }

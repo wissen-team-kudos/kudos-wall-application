@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SampleGroupService } from '../sample-group.service';
+import { SampleKudoService } from '../sample-kudo.service';
 
 @Component({
   selector: 'home',
@@ -9,10 +11,13 @@ export class HomeComponent implements OnInit {
 
   currentJustify='fill'
   clicked=false;
-  kudos=[];
-  rooms=[];
-  constructor() {
-    this.kudos=["kudo1","kudo2","kudo3"];
+
+  kudos:String[];
+  rooms:String[];
+
+  constructor(private sampleGroupService: SampleGroupService,private sampleKudoService: SampleKudoService) {
+
+    this.kudos= this.sampleKudoService.getKudos();
    }
 
   ngOnInit(): void {
@@ -20,17 +25,19 @@ export class HomeComponent implements OnInit {
   
   showKudos(){
     this.clicked=true;
+    
+    this.kudos= this.sampleKudoService.getKudos();
     console.log(this.kudos)
   }
 
   showRooms(){
     this.clicked=true;
-    this.rooms=["room1","room2","room3","room4"];
+
+    this.rooms= this.sampleGroupService.getRooms();
     console.log(this.rooms)
   }
 
-  addRooms(room){
-    this.rooms.push(room);
-    console.log(this.rooms);
+  onShare(room){
+    alert("Sharing "+room);
   }
 }
