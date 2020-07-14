@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.kudo.entity.User;
 import com.demo.kudo.models.AuthenticationRequest;
 import com.demo.kudo.models.AuthenticationResponse;
 import com.demo.kudo.security.services.MyUserDetailsService;
 import com.demo.kudo.security.util.JwtUtil;
+import com.demo.kudo.service.UserService;
 
 @RestController
 public class AuthenticationController {
@@ -28,6 +30,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private JwtUtil jwtTokenUtil;
+	
+	@Autowired
+	private UserService userService;
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
@@ -41,8 +46,9 @@ public class AuthenticationController {
 		
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
+		final User user = userService.getUser(userDetails.getUsername());
 		
-		final String jwt = jwtTokenUtil.generateToken(userDetails);	
+		final String jwt = jwtTokenUtil.generateToken(userDetails, user.getId());	
 		
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 	}
