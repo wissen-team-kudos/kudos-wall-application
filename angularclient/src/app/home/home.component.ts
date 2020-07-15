@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   clicked=false;
 
   kudos:String[];
-  rooms:String[];
+  groups:String[];
 
   constructor(private sampleGroupService: SampleGroupService,private sampleKudoService: SampleKudoService) {
 
@@ -30,14 +30,14 @@ export class HomeComponent implements OnInit {
     console.log(this.kudos)
   }
 
-  showRooms(){
+  showGroups(){
     this.clicked=true;
 
-    this.rooms= this.sampleGroupService.getRooms();
-    console.log(this.rooms)
+    this.groups= this.sampleGroupService.getGroups();
+    console.log(this.groups)
   }
 
-  onShare(room){
-    alert("Sharing "+room);
+  onShare(group){
+    alert("Sharing "+group);
   }
 }

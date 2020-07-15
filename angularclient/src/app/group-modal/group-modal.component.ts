@@ -34,7 +34,7 @@ export class GroupModalComponent {
 
   onSubmit(form: NgForm){
 
-    var room = form.value.name;
-    this.sampleGroupService.addRoom(room);
+    var group = form.value.name;
+    this.sampleGroupService.addGroup(group);
   }
 }

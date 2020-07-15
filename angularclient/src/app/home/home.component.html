@@ -7,22 +7,22 @@
         </ng-template>
     </ng-container> 
     <ng-container ngbNavItem>
-        <a ngbNavLink (click)="showRooms()">Rooms</a>
+        <a ngbNavLink (click)="showGroups()">Rooms</a>
         <ng-template ngbNavContent>
           <div class="container">
             <div class="row">
               <div class="col-8">
                 <div class="row row-cols-1 row-cols-md-2">
-                  <div *ngFor="let room of rooms" class="col mb-4">
+                  <div *ngFor="let group of groups" class="col mb-4">
 
                     <div class="card" style="width: 18rem;">
                       <!-- <img src="..." class="card-img-top" alt="..."> -->
                       <div class="card-body">
-                        <h5 class="card-title">{{room}}</h5>
+                        <h5 class="card-title">{{group}}</h5>
                         <p class="card-text">Room details</p>
                         <kudo-modal></kudo-modal>
                         <a href="#" class="btn btn-link" 
-                            (click)="onShare(room)">
+                            (click)="onShare(group)">
                           Share Room
                         </a>
                       </div>

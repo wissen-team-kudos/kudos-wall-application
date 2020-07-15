@@ -5,18 +5,18 @@ import { Injectable } from '@angular/core';
 })
 export class SampleGroupService {
 
-  rooms: String[];
+  groups: String[];
   
   constructor() { 
-    this.rooms=["room1","room2","room3","room4"];
+    this.groups=["room1","room2","room3","room4"];
   }
 
-  getRooms(){
-    return this.rooms;
+  getGroups(){
+    return this.groups;
   }
 
-  addRoom(room: String){
-    this.rooms.push(room);
-    console.log(this.rooms);
+  addGroup(group: String){
+    this.groups.push(group);
+    console.log(this.groups);
   }
 }
