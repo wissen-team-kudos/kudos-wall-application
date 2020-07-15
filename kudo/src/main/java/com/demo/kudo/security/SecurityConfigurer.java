@@ -8,15 +8,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.demo.kudo.filters.CorsFilter;
 import com.demo.kudo.filters.JwtRequestFilter;
 import com.demo.kudo.security.services.MyUserDetailsService;
-
-import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy.NoOp;
 
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -40,6 +39,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 			.and().sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class);
 	}
 	
 	
