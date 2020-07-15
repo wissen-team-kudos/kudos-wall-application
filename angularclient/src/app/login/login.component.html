@@ -1,0 +1,6 @@
+<form class = "form-signin" (ngSubmit)="login(username, password)">
+    <div *ngIf="invalidLogin" class = "alert alert-danger">Invalid Username or Password</div>
+    <input type="text" id="username" #username name = "username" class="form-control" placeholder="Username" required autofocus>
+    <input type="password" id="password" #password name = "password" class="form-control" placeholder="Password" required autofocus>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
