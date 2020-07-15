@@ -1,3 +1,8 @@
+
+import { LoginGuard } from './services/login-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AuthenticationService } from './services/authentication.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -8,6 +13,7 @@ import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { GroupModalComponent } from './group-modal/group-modal.component';
 import { FormsModule } from "@angular/forms";
+import { LoginComponent } from './login/login.component';
 import { KudoModalComponent } from './kudo-modal/kudo-modal.component';
 import { SampleGroupService } from './dummy-services/sample-group.service';
 import { SampleKudoService } from './dummy-services/sample-kudo.service';
@@ -18,15 +24,21 @@ import { SampleKudoService } from './dummy-services/sample-kudo.service';
     HomeComponent,
     BsNavbarComponent,
     GroupModalComponent,
+    LoginComponent,
     KudoModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
+    HttpClient,
+    AuthenticationService,
+    AuthGuard,
+    LoginGuard,
     SampleGroupService, 
     SampleKudoService
   ],
