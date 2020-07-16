@@ -1,6 +1,7 @@
 import { AuthenticationService } from './authentication.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '../models/user-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -100,24 +101,4 @@ export class UserService {
     })
   }
 
-}
-
-export interface User{
-  id? : number,
-  username : string,
-  password : string,
-  kudos? : {
-    id : number,
-    content : string,
-    author : {
-      id : number,
-      username : string,
-      password : string
-    }
-  }[] | null,
-  groups? : {
-    id : number,
-    groupname : string,
-    password: string
-  }[] | null
 }
