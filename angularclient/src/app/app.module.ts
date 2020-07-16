@@ -1,3 +1,4 @@
+import { UserService } from './services/user.service';
 
 import { LoginGuard } from './services/login-guard.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -40,7 +41,8 @@ import { SampleKudoService } from './dummy-services/sample-kudo.service';
     AuthGuard,
     LoginGuard,
     SampleGroupService, 
-    SampleKudoService
+    SampleKudoService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
