@@ -58,7 +58,7 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 	
-	@PutMapping("/users/group/{userId}/{groupId}")
+	@PutMapping("/users/groupid/{userId}/{groupId}")
 	public User updateGrouptoUser(@PathVariable int userId, @PathVariable int groupId) {
 				
 		Group group = groupService.getGroup(groupId);
@@ -68,6 +68,16 @@ public class UserController {
 		
 		User user=userService.saveUserWithGroup(userId,group);
 		
+		return user;
+	}
+	
+	@PutMapping("/users/groupname/{userId}/{groupname}")
+	public User updateGrouptoUser(@PathVariable int userId, @PathVariable String groupname) {
+		Group group = groupService.getGroup(groupname);
+		if(group == null) {
+			throw new GroupNotFoundException("Group with groupname :" + groupname + "not found.");
+		}
+		User user = userService.saveUserWithGroup(userId, group);
 		return user;
 	}
 	
