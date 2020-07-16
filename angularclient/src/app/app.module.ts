@@ -17,6 +17,8 @@ import { LoginComponent } from './login/login.component';
 import { KudoModalComponent } from './kudo-modal/kudo-modal.component';
 import { SampleGroupService } from './dummy-services/sample-group.service';
 import { SampleKudoService } from './dummy-services/sample-kudo.service';
+import { GroupService } from './services/group.service';
+import { BasicAuthHttpInterceptorService } from './services/basic-auth-http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { SampleKudoService } from './dummy-services/sample-kudo.service';
     AuthGuard,
     LoginGuard,
     SampleGroupService, 
-    SampleKudoService
+    SampleKudoService,
+    GroupService,
+    BasicAuthHttpInterceptorService
   ],
   bootstrap: [AppComponent]
 })

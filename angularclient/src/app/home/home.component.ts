@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SampleGroupService } from '../dummy-services/sample-group.service';
 import { SampleKudoService } from '../dummy-services/sample-kudo.service';
+import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'home',
@@ -15,7 +16,9 @@ export class HomeComponent implements OnInit {
   kudos:String[];
   groups:String[];
 
-  constructor(private sampleGroupService: SampleGroupService,private sampleKudoService: SampleKudoService) {
+  constructor(private groupService: GroupService,
+              private sampleGroupService: SampleGroupService,
+              private sampleKudoService: SampleKudoService) {
 
     this.kudos= this.sampleKudoService.getKudos();
    }
@@ -35,6 +38,11 @@ export class HomeComponent implements OnInit {
 
     this.groups= this.sampleGroupService.getGroups();
     console.log(this.groups)
+
+    this.groupService.getGroups()
+    .subscribe(result =>{
+      console.log(result);
+    });
   }
 
   onShare(group){

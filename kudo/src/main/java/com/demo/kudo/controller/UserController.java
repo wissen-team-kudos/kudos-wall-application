@@ -19,7 +19,6 @@ import com.demo.kudo.service.GroupService;
 import com.demo.kudo.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class UserController {
 

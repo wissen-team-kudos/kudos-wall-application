@@ -35,7 +35,6 @@ public class AuthenticationController {
 	@Autowired
 	private UserService userService;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 		try {
