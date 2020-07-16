@@ -83,4 +83,13 @@ public class GroupDAO implements IGroupDAO {
 		theQuery.executeUpdate();	
 	}
 
+	@Override
+	public Group getGroup(String groupname) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		Query query = currentSession.createQuery("FROM Group WHERE groupname=:paramGroupname");
+		query.setParameter("paramGroupname", groupname);
+		return (Group)query.getSingleResult();
+	}
+
 }

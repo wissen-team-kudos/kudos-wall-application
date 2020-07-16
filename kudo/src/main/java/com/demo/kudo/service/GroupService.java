@@ -46,4 +46,10 @@ public class GroupService implements IGroupService {
 		groupDAO.deleteGroup(theId);
 	}
 
+	@Override
+	@Transactional
+	public Group getGroup(String groupname) {
+		return groupDAO.getGroup(groupname);
+	}
+
 }
