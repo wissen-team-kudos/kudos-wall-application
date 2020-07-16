@@ -1,7 +1,7 @@
 
 import { LoginGuard } from './services/login-guard.service';
 import { AuthGuard } from './services/auth-guard.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -44,7 +44,7 @@ import { BasicAuthHttpInterceptorService } from './services/basic-auth-http-inte
     SampleGroupService, 
     SampleKudoService,
     GroupService,
-    BasicAuthHttpInterceptorService
+    {provide: HTTP_INTERCEPTORS, useClass: BasicAuthHttpInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
