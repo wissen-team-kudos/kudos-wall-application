@@ -117,12 +117,21 @@ public class UserDAO implements IUserDAO {
 		
 		Set<Kudos> kudos = new HashSet<Kudos>();
 		List<Group> groups = theUser.getGroups();
+		List<User> usersInGroup= new ArrayList<User>();
+		List<Kudos> kudosOfUser= new ArrayList<Kudos>();
+		
 		for(Group group:groups) {
 			kudos.addAll((group.getKudos()).stream().collect(Collectors.toSet()));
+			usersInGroup = group.getUsers();
+			
+			for(User user: usersInGroup) {
+				kudosOfUser = user.getKudos();				
+				kudos.addAll(kudosOfUser.stream().collect(Collectors.toSet()));
+
 			}
+		}
 		
-		List<Kudos> kudosOfUser = theUser.getKudos();
-		kudos.addAll(kudosOfUser.stream().collect(Collectors.toSet()));
+
 
 		
 		return kudos.stream().collect(Collectors.toList());
