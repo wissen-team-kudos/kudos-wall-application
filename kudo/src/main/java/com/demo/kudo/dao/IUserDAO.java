@@ -2,7 +2,7 @@ package com.demo.kudo.dao;
 
 import java.util.List;
 
-import com.demo.kudo.entity.User;
+import com.demo.kudo.entity.*;
 
 
 public interface IUserDAO {
@@ -16,4 +16,7 @@ public interface IUserDAO {
 	public User getUser(String username);
 
 	public void deleteUser(int theId);
+	
+	public List<Kudos> getKudosOfUser(int theID);
+
 }

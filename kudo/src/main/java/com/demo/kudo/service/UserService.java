@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.kudo.dao.UserDAO;
 import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.Kudos;
 import com.demo.kudo.entity.User;
 
 @Service
@@ -58,5 +59,12 @@ public class UserService implements IUserService {
 		return userDAO.getUser(username);
 		
 	}
+	@Override
+	@Transactional
+	public List<Kudos> getKudosOfUser(int userId) {
+		
+		return userDAO.getKudosOfUser(userId);
+	}
+	
 
 }

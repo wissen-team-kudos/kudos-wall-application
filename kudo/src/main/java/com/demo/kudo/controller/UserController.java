@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.*;
 import com.demo.kudo.entity.User;
 import com.demo.kudo.service.GroupService;
 import com.demo.kudo.service.UserService;
@@ -85,4 +85,9 @@ public class UserController {
 		
 		return "Deleted user "+userId;
 	}
+	@GetMapping("/users/userid/{userId}")
+	public List<Kudos> getKudosOfUser(@PathVariable int userId){
+		List<Kudos> kudos = userService.getKudosOfUser(userId);
+		return kudos;
+	} 
 }

@@ -1,6 +1,10 @@
 package com.demo.kudo.dao;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -104,6 +108,28 @@ public class UserDAO implements IUserDAO {
 		return (User)query.getSingleResult();
 	}
 	
+	
+	@Override
+	public List<Kudos> getKudosOfUser(int theID) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		User theUser= currentSession.get(User.class, theID);
+		
+		Set<Kudos> kudos = new HashSet<Kudos>();
+		List<Group> groups = theUser.getGroups();
+		for(Group group:groups) {
+			kudos.addAll((group.getKudos()).stream().collect(Collectors.toSet()));
+			}
+		
+		List<Kudos> kudosOfUser = theUser.getKudos();
+		kudos.addAll(kudosOfUser.stream().collect(Collectors.toSet()));
+
+		
+		return kudos.stream().collect(Collectors.toList());
+	}
+	
+
+
 	
 
 }
