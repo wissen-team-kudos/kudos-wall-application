@@ -15,7 +15,7 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `groups_of_user`;
 CREATE TABLE `groups_of_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupname` varchar(50) NOT NULL,
+  `groupname` varchar(50) NOT NULL unique,
   `password` varchar(68) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
