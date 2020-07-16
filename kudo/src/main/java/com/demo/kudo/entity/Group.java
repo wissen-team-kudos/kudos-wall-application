@@ -25,7 +25,8 @@ public class Group {
 	@Column(name="id")
 	int id;
 	
-	@Column(name="groupname")
+	@Column(name="groupname",
+			unique = true)
 	String groupname;
 	
 	@Column(name="password")
