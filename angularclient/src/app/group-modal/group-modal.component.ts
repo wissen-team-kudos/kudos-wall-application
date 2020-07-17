@@ -3,16 +3,26 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
 import { SampleGroupService } from '../dummy-services/sample-group.service';
+import { GroupService } from '../services/group.service';
+import { Group } from '../models/group';
+import { map, delay } from 'rxjs/operators';
+import { User } from '../models/user';
+import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'group-modal',
   templateUrl: './group-modal.component.html',
-  styleUrls: ['./group-modal.component.css']
+  styleUrls: ['./group-modal.component.css'],
 })
 export class GroupModalComponent {
   closeResult = '';
 
-  constructor(private modalService: NgbModal, private sampleGroupService: SampleGroupService) {}
+  constructor(private modalService: NgbModal, 
+              private groupService: GroupService,
+              private authService: AuthenticationService,
+              private router: Router,
+              private sampleGroupService: SampleGroupService) {}
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -32,9 +42,51 @@ export class GroupModalComponent {
     }
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm, value: number){
 
-    var group = form.value.name;
-    this.sampleGroupService.addGroup(group);
+    let userId : number = this.authService.CurrentUserId();
+
+
+
+    let group : Group = {
+      groupname : form.value.name,
+      password : form.value.password,
+      users : [
+        {
+          id: 1,  
+          username : 'user1',
+          password : 'pass1'
+        }
+      ]
+    }
+
+    console.log(group)
+
+    // this.sampleGroupService.addGroup(group);
+
+    if(value == 0)
+    console.log("Joining Group "+group.groupname);
+
+    if(value == 1){
+      console.log("Creating Group "+group.groupname);
+
+      this.groupService.addGroup(group)
+      .subscribe(response =>{
+        let group : Group = <Group>response.body;
+        console.log(group);
+      });
+
+      // this.groupService.getUser(userId)
+      // .subscribe(response => {
+      // let user : User = <User>response.body; 
+      // })
+
+    }
+  }
+
+  reload(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['']);
+  }); 
   }
 }
