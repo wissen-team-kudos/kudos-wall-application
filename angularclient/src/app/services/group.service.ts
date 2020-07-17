@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Group } from '../models/group';
-import { GroupDetails } from '../models/group-details';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
 
