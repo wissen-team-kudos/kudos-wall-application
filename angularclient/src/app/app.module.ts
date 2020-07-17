@@ -19,6 +19,7 @@ import { SampleGroupService } from './dummy-services/sample-group.service';
 import { SampleKudoService } from './dummy-services/sample-kudo.service';
 import { GroupService } from './services/group.service';
 import { BasicAuthHttpInterceptorService } from './services/basic-auth-http-interceptor.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { BasicAuthHttpInterceptorService } from './services/basic-auth-http-inte
     SampleGroupService, 
     SampleKudoService,
     GroupService,
+    UserService,
     {provide: HTTP_INTERCEPTORS, useClass: BasicAuthHttpInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
