@@ -6,6 +6,13 @@ import { SampleKudoService } from '../dummy-services/sample-kudo.service';
 import { KudosService } from '../services/kudos.service';
 import { KudoCardComponent } from '../kudo-card/kudo-card.component';
 import { Kudos } from '../models/kudos-interface';
+import { GroupService } from '../services/group.service';
+import { Group } from '../models/group';
+import { User } from '../models/user';
+import { Observable, forkJoin, EMPTY } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import { delay, map } from 'rxjs/operators';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'home',
@@ -18,13 +25,17 @@ export class HomeComponent implements OnInit {
   clicked=false;
 
   kudos:Kudos[];
-  groups:String[];
+  userGroups : Group[]=[];
+ 
 
-  constructor(private sampleGroupService: SampleGroupService,
-				private sampleKudoService: SampleKudoService,
-    			private userService:UserService,
-				private kudosService:KudosService,
-				private sampleKudosService:SampleKudoService
+  constructor(private groupService: GroupService,
+    private authService: AuthenticationService,
+    private sharedService: SharedService,
+    private sampleGroupService: SampleGroupService,
+    private sampleKudoService: SampleKudoService,
+    private userService:UserService,
+    private kudosService:KudosService,
+    private sampleKudosService:SampleKudoService
 				) {
     this.kudos= this.sampleKudosService.getKudos();
    }
@@ -57,11 +68,56 @@ export class HomeComponent implements OnInit {
   showGroups(){
     this.clicked=true;
 
-    this.groups= this.sampleGroupService.getGroups();
-    console.log(this.groups)
+//////////////////// TESTING OF GROUP APIS /////////////////////////
+
+    // this.groupService.getGroup(1);
+    // this.groupService.getAllGroups();
+
+    // let group : Group={
+    //   groupname : 'group10',
+    //   password : 'pass10'
+    // };
+    // this.groupService.addGroup(group);
+
+    // let group : Group={
+    //   id: 3,
+    //   groupname : 'group15',
+    //   password : 'pass15'
+    // };
+    // this.groupService.updateGroup(group);
+
+    // this.groupService.deleteGroup(13);
+    // this.groupService.deleteGroup(14);
+
+//////////////////////////////////////////////////////////////
+
+    let userId : number = this.authService.CurrentUserId();
+
+    this.userGroups=[];
+
+    let sub = this.groupService.getUser(userId)
+    .subscribe(response => {
+      let user : User= <User>response.body;
+      let groupList : Group[] = <Group[]>user.groups;
+
+      groupList.forEach(group => {
+        this.groupService.getGroup(group.id)
+        .subscribe(response => {
+          this.userGroups.push(<Group>response.body)
+        });
+      });
+
+      this.sharedService.groupAdded
+      .subscribe(newGroup => {
+          this.userGroups.push(newGroup);
+          console.log(this.userGroups);
+      });
+      
+      console.log(this.userGroups);
+    });
   }
 
-  onShare(group){
-    alert("Sharing "+group);
+  onShare(groupname: String){
+    alert("Sharing "+groupname);
   }
 }
