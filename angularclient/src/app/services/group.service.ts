@@ -48,8 +48,16 @@ export class GroupService {
     });
   }
 
-  addGroup(group : Group){
+  addGroup(group : Group, user? : User){
     
+    if(user){
+      group.users = [{
+        id: user.id,
+        username: user.username,
+        password: user.password
+      }];
+    }
+
     return this.http.post(this.url,group,
       {
         observe : 'response',
