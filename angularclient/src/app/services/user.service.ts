@@ -86,16 +86,30 @@ export class UserService {
     });
   }
 
-  addGroupToUser(userid: number, groupname: string) {
-    this.http.put(this.url + "/groupname/" + userid + "/" + groupname,
-      null,
+  /*
+    ReturnType : HttpResponse
+    if groupname and password are valid combination: status=200
+    else: status=401
+  */
+  addGroupToUser(userid: number, groupname: string, groupPassword: string) {
+    this.http.put(this.url + "/groupname/" + userid,
+      {
+        groupname: groupname,
+        password: groupPassword
+      },
       {
         observe : 'response',
         responseType : 'json'
       }
     ).subscribe(response => {
-      let user : User = <User> response.body;
-      console.log(user);
+      if(response.status==401){
+        console.log("Not auhorized: invalid groupname or password");
+      }
+      else{
+        let user : User = <User> response.body;
+        console.log(user);
+      }
+      
     });
   }
 }
