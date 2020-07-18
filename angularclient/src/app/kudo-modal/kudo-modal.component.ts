@@ -40,6 +40,6 @@ export class KudoModalComponent implements OnInit {
   onSubmit(form: NgForm){
 
     this.theKudo.content=form.value.name;
-    this.kudoService.addKudo(theKudo);
+    this.kudoService.addKudo(this.theKudo);
   }
 }
