@@ -9,6 +9,7 @@ import { map, delay } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
 import { SharedService } from '../shared/shared.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'group-modal',
@@ -20,6 +21,7 @@ export class GroupModalComponent {
 
   constructor(private modalService: NgbModal, 
               private groupService: GroupService,
+              private userService: UserService,
               private authService: AuthenticationService,
               private sharedService: SharedService,
               private sampleGroupService: SampleGroupService) {}
@@ -65,7 +67,7 @@ export class GroupModalComponent {
       //   this.sharedService.groupAdded.next(group);
       // });
       
-      this.groupService.getUser(userId)
+      this.userService.getUser(userId)
       .subscribe(response => {
         let user : User = <User>response.body; 
         group.users = [{
