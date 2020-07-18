@@ -104,4 +104,14 @@ public class UserController {
 		
 		return "Deleted user "+userId;
 	}
+	
+	@GetMapping("/users/username/{username}")
+	public User getUser(@PathVariable String username) {
+		User user = userService.getUser(username);
+		if(user == null) {
+			throw new UserNotFoundException("User not found - " + username);
+		}
+		
+		return user;
+	}
 }
