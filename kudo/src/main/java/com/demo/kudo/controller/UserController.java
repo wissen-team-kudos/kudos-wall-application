@@ -3,6 +3,8 @@ package com.demo.kudo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.kudo.entity.*;
 import com.demo.kudo.entity.User;
+import com.demo.kudo.models.GroupAuthenticationRequest;
 import com.demo.kudo.service.GroupService;
 import com.demo.kudo.service.UserService;
 
@@ -82,14 +85,14 @@ public class UserController {
 		return user;
 	}
 	
-	@PutMapping("/users/groupname/{userId}/{groupname}")
-	public User updateGrouptoUser(@PathVariable int userId, @PathVariable String groupname) {
-		Group group = groupService.getGroup(groupname);
-		if(group == null) {
-			throw new GroupNotFoundException("Group with groupname :" + groupname + "not found.");
+	@PutMapping("/users/groupname/{userId}")
+	public ResponseEntity<User> updateGrouptoUser(@PathVariable int userId, @RequestBody GroupAuthenticationRequest request) {
+		Group group = groupService.getGroup(request.getGroupname());
+		if(group == null || !group.getPassword().equals(request.getPassword())) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 		User user = userService.saveUserWithGroup(userId, group);
-		return user;
+		return ResponseEntity.ok(user);
 	}
 	
 	@DeleteMapping("/users/{userId}")
