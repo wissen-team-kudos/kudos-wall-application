@@ -42,7 +42,7 @@
     </div>
     <div class="modal-body">
         <p>Enter room details</p>
-        <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f,1); reload()" >
+        <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f,1)" >
         <div class="form-group">
             <label for="recipient-name" class="col-form-label">Room Name:</label>
             <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name">

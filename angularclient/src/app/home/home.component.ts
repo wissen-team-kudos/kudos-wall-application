@@ -4,10 +4,11 @@ import { SampleKudoService } from '../dummy-services/sample-kudo.service';
 import { GroupService } from '../services/group.service';
 import { Group } from '../models/group';
 import { User } from '../models/user';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, EMPTY } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { delay, map } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'home',
@@ -21,16 +22,17 @@ export class HomeComponent implements OnInit {
 
   kudos:String[];
 
-  userGroupsObsv : Observable<Group[]>;
-  userGroupsObsvArray : Observable<Group>[] = [];
+  userGroups : Group[]=[];
 
   constructor(private groupService: GroupService,
               private authService: AuthenticationService,
+              private sharedService: SharedService,
               private sampleGroupService: SampleGroupService,
               private sampleKudoService: SampleKudoService) {
 
     this.kudos= this.sampleKudoService.getKudos();
-   }
+  }
+
 
   ngOnInit(): void {  }
   
@@ -69,41 +71,32 @@ export class HomeComponent implements OnInit {
 
     let userId : number = this.authService.CurrentUserId();
 
-    this.groupService.getUser(userId)
+    this.userGroups=[];
+
+    let sub = this.groupService.getUser(userId)
     .subscribe(response => {
-      let user : User = <User>response.body;
-      let groupList : Group[] = <Group[]> user.groups;
+      let user : User= <User>response.body;
+      let groupList : Group[] = <Group[]>user.groups;
 
-      this.userGroupsObsvArray=[];
       groupList.forEach(group => {
-        this.userGroupsObsvArray.push(this.groupService.getGroupObsv(group.id));
-      })
+        this.groupService.getGroup(group.id)
+        .subscribe(response => {
+          this.userGroups.push(<Group>response.body)
+        });
+      });
 
-      this.userGroupsObsv = forkJoin(this.userGroupsObsvArray);
-      console.log(this.userGroupsObsv)
+      console.log(this.userGroups);
     });
 
-    // //////////////////////////////////////
-    // let group : Group={
-    //   groupname : 'group10',
-    //   password : 'pass10',
-    //   users :[
-    //     {
-    //       id : 1,
-    //       username: 'user1',
-    //       password: 'pass1'
-    //     }
-    //   ]
-    // };
-
-    // delay(5000);
-
-    // //////////////////////////////////////////
-    // this.groupService.addGroup(group);
-
+    this.sharedService.groupAdded
+    .subscribe(response => {
+        this.userGroups.push(response);
+        console.log(this.userGroups);
+    });
   }
 
   onShare(groupname: String){
     alert("Sharing "+groupname);
   }
+
 }

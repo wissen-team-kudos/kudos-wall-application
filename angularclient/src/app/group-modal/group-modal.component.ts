@@ -8,7 +8,7 @@ import { Group } from '../models/group';
 import { map, delay } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
-import { Router } from '@angular/router';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'group-modal',
@@ -21,7 +21,7 @@ export class GroupModalComponent {
   constructor(private modalService: NgbModal, 
               private groupService: GroupService,
               private authService: AuthenticationService,
-              private router: Router,
+              private sharedService: SharedService,
               private sampleGroupService: SampleGroupService) {}
 
   open(content) {
@@ -46,8 +46,6 @@ export class GroupModalComponent {
 
     let userId : number = this.authService.CurrentUserId();
 
-
-
     let group : Group = {
       groupname : form.value.name,
       password : form.value.password,
@@ -58,35 +56,46 @@ export class GroupModalComponent {
           password : 'pass1'
         }
       ]
-    }
-
-    console.log(group)
-
-    // this.sampleGroupService.addGroup(group);
+    };
 
     if(value == 0)
     console.log("Joining Group "+group.groupname);
 
     if(value == 1){
+      
       console.log("Creating Group "+group.groupname);
 
       this.groupService.addGroup(group)
       .subscribe(response =>{
         let group : Group = <Group>response.body;
         console.log(group);
+        this.sharedService.groupAdded.next(group);
       });
-
+      
       // this.groupService.getUser(userId)
       // .subscribe(response => {
-      // let user : User = <User>response.body; 
-      // })
+      //   let user : User = <User>response.body; 
+      //   console.log(user);
 
+      //   let group : Group = {
+      //     groupname : form.value.name,
+      //     password : form.value.password,
+      //     users : [
+      //       {
+      //         id: user.id,  
+      //         username : user.username,
+      //         password : user.password
+      //       }
+      //     ]
+      //   }
+      //   console.log(group)
+      // });
+
+      // this.groupService.getUser(userId)
+      // .pipe(map(response => {
+      //   r
+      // }))
     }
   }
 
-  reload(){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['']);
-  }); 
-  }
 }
