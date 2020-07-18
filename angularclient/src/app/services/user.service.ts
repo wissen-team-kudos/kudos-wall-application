@@ -1,5 +1,5 @@
 import { AuthenticationService } from './authentication.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 
@@ -74,4 +74,28 @@ export class UserService {
     })
   }
 
+  getUserByUsername(username: string) {
+    this.http.get(this.url + "/username/" + username,
+    {
+      observe : 'response',
+      responseType : 'json'
+    }
+    ).subscribe(response=> {
+      let user : User = <User>response.body;
+      console.log(user);
+    });
+  }
+
+  addGroupToUser(userid: number, groupname: string) {
+    this.http.put(this.url + "/groupname/" + userid + "/" + groupname,
+      null,
+      {
+        observe : 'response',
+        responseType : 'json'
+      }
+    ).subscribe(response => {
+      let user : User = <User> response.body;
+      console.log(user);
+    });
+  }
 }
