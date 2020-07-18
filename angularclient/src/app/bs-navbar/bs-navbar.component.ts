@@ -1,4 +1,6 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { subscribeOn } from 'rxjs/operators';
 
 @Component({
   selector: 'bs-navbar',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BsNavbarComponent implements OnInit {
 
-  constructor() { }
+  isUserLoggedIn:boolean;
+  constructor(private authService : AuthenticationService) {
+  }
 
   ngOnInit(): void {
+    
+    this.authService.getLoginStatus()
+    .subscribe((value : boolean) => {
+      this.isUserLoggedIn = value;
+    });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }
