@@ -85,13 +85,13 @@ export class HomeComponent implements OnInit {
         });
       });
 
+      this.sharedService.groupAdded
+      .subscribe(newGroup => {
+          this.userGroups.push(newGroup);
+          console.log(this.userGroups);
+      });
+      
       console.log(this.userGroups);
-    });
-
-    this.sharedService.groupAdded
-    .subscribe(response => {
-        this.userGroups.push(response);
-        console.log(this.userGroups);
     });
   }
 
