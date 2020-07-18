@@ -16,14 +16,8 @@ export class UserService {
     ) { }
 
   getUser(id:number){
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = "Bearer " + token;
-    headers = headers.set("Authorization", tokenHeader);
-    console.log(headers.get("Authorization"));
     this.http.get(this.url + "/" + id,
        {
-        headers: headers,
         observe:'response',
         responseType: 'json'
        }  
@@ -34,14 +28,8 @@ export class UserService {
   }
 
   getAllUsers(){
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = "Bearer " + token;
-    headers = headers.set("Authorization", tokenHeader);
-    console.log(headers.get("Authorization"));
     this.http.get(this.url,
        {
-        headers: headers,
         observe:'response',
         responseType: 'json'
        }  
@@ -52,13 +40,8 @@ export class UserService {
   }
 
   addUser(user : User) {
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = 'Bearer ' + token;
-    headers = headers.set('Authorization', tokenHeader);
     this.http.post(this.url, user,
       {
-        headers : headers,
         observe : 'response',
         responseType : 'json'
       }
@@ -69,13 +52,8 @@ export class UserService {
   }
 
   updateUser(user : User) {
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = 'Bearer ' + token;
-    headers = headers.set('Authorization', tokenHeader);
     this.http.put(this.url, user,
       {
-        headers : headers,
         observe : 'response',
         responseType : 'json'
       }
@@ -86,13 +64,8 @@ export class UserService {
   }
 
   deleteUser(id : number) {
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = 'Bearer ' + token;
-    headers = headers.set('Authorization', tokenHeader);
     this.http.delete(this.url + '/' + id,
       {
-        headers : headers,
         observe : 'response',
         responseType : 'text'
       }

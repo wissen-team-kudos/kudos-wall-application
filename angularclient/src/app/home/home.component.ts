@@ -38,10 +38,10 @@ export class HomeComponent implements OnInit {
     private sampleKudosService:SampleKudoService
 				) {
     this.kudos= this.sampleKudosService.getKudos();
-   }
-
-  ngOnInit(): void {
   }
+
+
+  ngOnInit(): void {  }
   
   showKudos(){
     this.clicked=true;
@@ -120,4 +120,5 @@ export class HomeComponent implements OnInit {
   onShare(groupname: String){
     alert("Sharing "+groupname);
   }
+
 }

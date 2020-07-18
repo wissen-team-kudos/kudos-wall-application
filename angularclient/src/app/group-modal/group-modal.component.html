@@ -1,4 +1,11 @@
-<button class="btn btn-lg btn-outline-primary float-right" (click)="open(content)">Join Room</button>
+<div class="container">
+    <div class="row">
+        <button class="btn btn-lg btn-outline-primary float-right" (click)="open(content)">Join Room</button>
+    </div>
+    <div class="row">
+        <button class="btn btn-lg btn-primary float-right" (click)="open(createGroup)">Create Room</button>
+    </div>
+</div>
 
 <ng-template #content let-modal>
     <div class="modal-header">
@@ -8,7 +15,34 @@
       </button>
     </div>
     <div class="modal-body">
-        <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f)" >
+        <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f,0)" >
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Room Name:</label>
+            <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name">
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Room Password:</label>
+            <input type="password" class="form-control" name="password" ngModel #password="ngModel" id="password">
+        </div>
+            <div class="modal-footer">
+                <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
+                <button type="submit" class="btn btn-primary">Join</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #createGroup let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create Room</h4>
+      <br>
+      <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <p>Enter room details</p>
+        <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f,1)" >
         <div class="form-group">
             <label for="recipient-name" class="col-form-label">Room Name:</label>
             <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name">

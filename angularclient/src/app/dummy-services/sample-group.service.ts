@@ -16,7 +16,9 @@ export class SampleGroupService {
   }
 
   addGroup(group: String){
-    this.groups.push(group);
+
+    if(group!="")
+      this.groups.push(group);
     console.log(this.groups);
   }
 }
