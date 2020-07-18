@@ -17,15 +17,15 @@ export class HomeComponent implements OnInit {
   currentJustify='fill'
   clicked=false;
 
-  kudos:String[];
+  kudos:Kudos[];
   groups:String[];
 
   constructor(private sampleGroupService: SampleGroupService,
-    private sampleKudoService: SampleKudoService,
-    private userService:UserService,
-    private kudosService:KudosService,
-		private sampleKudosService:SampleKudoService) {
-
+				private sampleKudoService: SampleKudoService,
+    			private userService:UserService,
+				private kudosService:KudosService,
+				private sampleKudosService:SampleKudoService
+				) {
     this.kudos= this.sampleKudosService.getKudos();
    }
 

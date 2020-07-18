@@ -29,6 +29,7 @@ import { SampleKudoService } from './dummy-services/sample-kudo.service';
     LoginComponent,
     KudoCardComponent,
     KudoModalComponent
+
   ],
   imports: [
     BrowserModule,
@@ -45,7 +46,7 @@ import { SampleKudoService } from './dummy-services/sample-kudo.service';
     SampleGroupService, 
     SampleKudoService,
     UserService,
-    KudosService
+	KudosService
   ],
   bootstrap: [AppComponent]
 })

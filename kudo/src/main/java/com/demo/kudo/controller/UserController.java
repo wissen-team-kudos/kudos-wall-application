@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.*;
 import com.demo.kudo.entity.User;
 import com.demo.kudo.service.GroupService;
 import com.demo.kudo.service.UserService;
@@ -43,6 +43,17 @@ public class UserController {
 		}
 		
 		return user;
+	}
+	@GetMapping("/users/userid/{userId}")
+	public List<Kudos> getKudosOfUser(@PathVariable int userId) {
+		
+		User user = userService.getUser(userId);
+		
+		if(user == null) {
+			throw new UserNotFoundException("User id not found - " + userId);
+		}
+		
+		return userService.getKudosOfUser(userId);
 	}
 	
 	@PostMapping("/users")
