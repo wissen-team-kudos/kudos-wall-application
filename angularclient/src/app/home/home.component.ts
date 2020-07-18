@@ -5,7 +5,7 @@ import { SampleGroupService } from '../dummy-services/sample-group.service';
 import { SampleKudoService } from '../dummy-services/sample-kudo.service';
 import { KudosService } from '../services/kudos.service';
 import { KudoCardComponent } from '../kudo-card/kudo-card.component';
-import { Kudos } from '../models/kudos-interface';
+import { Kudos } from '../models/kudos';
 import { GroupService } from '../services/group.service';
 import { Group } from '../models/group';
 import { User } from '../models/user';

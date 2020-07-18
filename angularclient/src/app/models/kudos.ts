@@ -6,16 +6,16 @@ export interface Kudos{
             username: string,
             password: string
         	},
-    users?:{
+    users:{
         	id:number,
             username: string,
             password: string
-            }[]|null,
+            }[],
 
-	groups?:{ 
+	groups:{ 
             id:number,
             groupname: string,
             password: string
-    		}[]|null
+    		}[]
     }
 

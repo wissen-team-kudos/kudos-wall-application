@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
 import { KudosService } from '../services/kudos.service';
-import { Kudos} from '../models/kudos-interface';
+import { Kudos} from '../models/kudos';
 
 @Component({
   selector: 'kudo-modal',

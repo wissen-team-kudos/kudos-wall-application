@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Kudos} from '../models/kudos-interface'
+import { Kudos} from '../models/kudos'
 
 @Injectable({
   providedIn: 'root'
