@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -20,19 +21,23 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(username : HTMLInputElement, password: HTMLInputElement) {
-    this.authService.login(username.value, password.value)
+  login(f) {
+    this.authService.login(f.value.username, f.value.password)
     .subscribe(result => {
       if(result) {
-        console.log("Successful")
+        console.log("Successful");
         this.invalidLogin = false;
-        this.router.navigate(['/'])
+        this.router.navigate(['/']);
         console.log(this.authService.isLoggedIn());
-        console.log("Logged in user is : " ,this.authService.CurrentUserId() ,this.authService.CurrentUsername())
+        console.log("Logged in user is : " ,this.authService.CurrentUserId() ,this.authService.CurrentUsername());
       }
       else {
         this.invalidLogin = true;
       }
-    })
+    },(error: HttpErrorResponse) =>{
+      console.log(error)
+      if(error.status == 401)
+        this.invalidLogin=true;
+    });
   }
 }

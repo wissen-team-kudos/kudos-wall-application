@@ -1,0 +1,15 @@
+.form-signin {
+    /* padding-top: 25%; */
+}
+
+.card {
+    margin-top:17%;
+    margin-left:23%
+}
+.form-control.ng-touched.ng-invalid {
+    border: 2px solid red;
+}
+
+.btn{
+    margin-left: 35%;
+}
