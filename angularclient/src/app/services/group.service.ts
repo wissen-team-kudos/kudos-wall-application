@@ -25,18 +25,6 @@ export class GroupService {
     );
   }
 
-  getGroupObsv(id: number) {
-   
-    return this.http.get<Group>(this.url + "/" + id,
-      {
-        observe : 'response',
-        responseType: 'json'
-      }
-    ).pipe(map(response => {
-      return response.body
-    }));
-  }
-
   getGroup(id: number) {
    
     return this.http.get(this.url + "/" + id,
