@@ -48,14 +48,7 @@ export class GroupModalComponent {
 
     let group : Group = {
       groupname : form.value.name,
-      password : form.value.password,
-      users : [
-        {
-          id: 1,  
-          username : 'user1',
-          password : 'pass1'
-        }
-      ]
+      password : form.value.password
     };
 
     if(value == 0)
@@ -65,36 +58,23 @@ export class GroupModalComponent {
       
       console.log("Creating Group "+group.groupname);
 
-      this.groupService.addGroup(group)
-      .subscribe(response =>{
-        let group : Group = <Group>response.body;
-        console.log(group);
-        this.sharedService.groupAdded.next(group);
-      });
-      
-      // this.groupService.getUser(userId)
-      // .subscribe(response => {
-      //   let user : User = <User>response.body; 
-      //   console.log(user);
-
-      //   let group : Group = {
-      //     groupname : form.value.name,
-      //     password : form.value.password,
-      //     users : [
-      //       {
-      //         id: user.id,  
-      //         username : user.username,
-      //         password : user.password
-      //       }
-      //     ]
-      //   }
-      //   console.log(group)
+      // this.groupService.addGroup(group)
+      // .subscribe(response =>{
+      //   let group : Group = <Group>response.body;
+      //   console.log(group);
+      //   this.sharedService.groupAdded.next(group);
       // });
-
-      // this.groupService.getUser(userId)
-      // .pipe(map(response => {
-      //   r
-      // }))
+      
+      this.groupService.getUser(userId)
+      .subscribe(response => {
+        let user : User = <User>response.body; 
+        this.groupService.addGroup(group, user)
+        .subscribe(response => {
+          let newGroup : Group =<Group>response.body;
+          console.log(newGroup);
+          this.sharedService.groupAdded.next(newGroup);
+        });
+      });
     }
   }
 
