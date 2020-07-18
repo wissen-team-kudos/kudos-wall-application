@@ -16,15 +16,23 @@ export class UserService {
     ) { }
 
   getUser(id:number){
-    this.http.get(this.url + "/" + id,
+    // this.http.get(this.url + "/" + id,
+    //    {
+    //     observe:'response',
+    //     responseType: 'json'
+    //    }  
+    // )
+    // .subscribe(response => {
+    //   let user : User = <User>response.body;
+    //   console.log(user);
+    // });
+
+    return this.http.get(this.url + "/" + id,
        {
         observe:'response',
         responseType: 'json'
        }  
-    ).subscribe(response => {
-      let user : User = <User>response.body;
-      console.log(user);
-    });
+    );
   }
 
   getAllUsers(){
