@@ -68,9 +68,15 @@ export class GroupModalComponent {
       this.groupService.getUser(userId)
       .subscribe(response => {
         let user : User = <User>response.body; 
-        this.groupService.addGroup(group, user)
+        group.users = [{
+          id: user.id,
+          username: user.username,
+          password: user.password
+        }];
+
+        this.groupService.addGroup(group)
         .subscribe(response => {
-          let newGroup : Group =<Group>response.body;
+          let newGroup : Group = <Group>response.body;
           console.log(newGroup);
           this.sharedService.groupAdded.next(newGroup);
         });
