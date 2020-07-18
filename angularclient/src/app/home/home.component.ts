@@ -38,6 +38,14 @@ export class HomeComponent implements OnInit {
     private sampleKudosService:SampleKudoService
 				) {
     this.kudos= this.sampleKudosService.getKudos();
+
+    /*Author: Mandar. Testing API*/
+    userService.getUserByUsername("user1");
+    userService.getUserByUsername("user2");
+    userService.getUserByUsername("user3");
+
+    userService.addGroupToUser(authService.CurrentUserId(), "room3");
+    /*Testing finished here: Mandar*/
   }
 
 
