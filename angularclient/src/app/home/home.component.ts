@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     userService.getUserByUsername("user2");
     userService.getUserByUsername("user3");
 
-    userService.addGroupToUser(authService.CurrentUserId(), "room3");
+    userService.addGroupToUser(authService.CurrentUserId(), "room3", "pass3");
     /*Testing finished here: Mandar*/
   }
 
