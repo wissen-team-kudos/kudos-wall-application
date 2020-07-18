@@ -3,6 +3,9 @@ import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { SampleGroupService } from '../dummy-services/sample-group.service';
 import { SampleKudoService } from '../dummy-services/sample-kudo.service';
+import { KudosService } from '../services/kudos.service';
+import { KudoCardComponent } from '../kudo-card/kudo-card.component';
+import { Kudos } from '../models/kudos-interface';
 
 @Component({
   selector: 'home',
@@ -17,10 +20,13 @@ export class HomeComponent implements OnInit {
   kudos:String[];
   groups:String[];
 
-  constructor(private sampleGroupService: SampleGroupService,private sampleKudoService: SampleKudoService,
-    private userService:UserService) {
+  constructor(private sampleGroupService: SampleGroupService,
+    private sampleKudoService: SampleKudoService,
+    private userService:UserService,
+    private kudosService:KudosService,
+		private sampleKudosService:SampleKudoService) {
 
-    this.kudos= this.sampleKudoService.getKudos();
+    this.kudos= this.sampleKudosService.getKudos();
    }
 
   ngOnInit(): void {
@@ -44,7 +50,7 @@ export class HomeComponent implements OnInit {
     this.userService.updateUser(userToUpdate);
     this.userService.deleteUser(6);
     */
-    this.kudos= this.sampleKudoService.getKudos();
+   this.kudos= this.sampleKudosService.getKudos();
     console.log(this.kudos)
   }
 

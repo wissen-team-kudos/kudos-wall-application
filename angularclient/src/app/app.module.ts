@@ -1,5 +1,5 @@
 import { UserService } from './services/user.service';
-
+import { KudosService } from './services/kudos.service';
 import { LoginGuard } from './services/login-guard.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -16,6 +16,7 @@ import { GroupModalComponent } from './group-modal/group-modal.component';
 import { FormsModule } from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { KudoModalComponent } from './kudo-modal/kudo-modal.component';
+import { KudoCardComponent } from './kudo-card/kudo-card.component';
 import { SampleGroupService } from './dummy-services/sample-group.service';
 import { SampleKudoService } from './dummy-services/sample-kudo.service';
 
@@ -26,6 +27,7 @@ import { SampleKudoService } from './dummy-services/sample-kudo.service';
     BsNavbarComponent,
     GroupModalComponent,
     LoginComponent,
+    KudoCardComponent,
     KudoModalComponent
   ],
   imports: [
@@ -42,7 +44,8 @@ import { SampleKudoService } from './dummy-services/sample-kudo.service';
     LoginGuard,
     SampleGroupService, 
     SampleKudoService,
-    UserService
+    UserService,
+    KudosService
   ],
   bootstrap: [AppComponent]
 })
