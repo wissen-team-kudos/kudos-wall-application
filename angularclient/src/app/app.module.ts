@@ -22,6 +22,7 @@ import { GroupService } from './services/group.service';
 import { BasicAuthHttpInterceptorService } from './services/basic-auth-http-interceptor.service';
 import { UserService } from './services/user.service';
 import { SharedService } from './shared/shared.service';
+import { GroupCardComponent } from './group-card/group-card.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,8 @@ import { SharedService } from './shared/shared.service';
     GroupModalComponent,
     LoginComponent,
     KudoCardComponent,
-    KudoModalComponent
-
+    KudoModalComponent,
+    GroupCardComponent
   ],
   imports: [
     BrowserModule,
