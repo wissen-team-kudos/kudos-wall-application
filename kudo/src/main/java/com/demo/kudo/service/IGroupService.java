@@ -11,6 +11,8 @@ public interface IGroupService {
 	public Group saveGroup(Group theGroup);
 
 	public Group getGroup(int theId);
+	
+	public Group getGroup(String groupname);
 
 	public void deleteGroup(int theId);
 }

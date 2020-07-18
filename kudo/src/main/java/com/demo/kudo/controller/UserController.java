@@ -3,7 +3,6 @@ package com.demo.kudo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.*;
 import com.demo.kudo.entity.User;
 import com.demo.kudo.service.GroupService;
 import com.demo.kudo.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class UserController {
 
@@ -46,6 +44,17 @@ public class UserController {
 		
 		return user;
 	}
+	@GetMapping("/users/userid/{userId}")
+	public List<Kudos> getKudosOfUser(@PathVariable int userId) {
+		
+		User user = userService.getUser(userId);
+		
+		if(user == null) {
+			throw new UserNotFoundException("User id not found - " + userId);
+		}
+		
+		return userService.getKudosOfUser(userId);
+	}
 	
 	@PostMapping("/users")
 	public User addUser(@RequestBody User user) {
@@ -60,7 +69,7 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 	
-	@PutMapping("/users/group/{userId}/{groupId}")
+	@PutMapping("/users/groupid/{userId}/{groupId}")
 	public User updateGrouptoUser(@PathVariable int userId, @PathVariable int groupId) {
 				
 		Group group = groupService.getGroup(groupId);
@@ -70,6 +79,16 @@ public class UserController {
 		
 		User user=userService.saveUserWithGroup(userId,group);
 		
+		return user;
+	}
+	
+	@PutMapping("/users/groupname/{userId}/{groupname}")
+	public User updateGrouptoUser(@PathVariable int userId, @PathVariable String groupname) {
+		Group group = groupService.getGroup(groupname);
+		if(group == null) {
+			throw new GroupNotFoundException("Group with groupname :" + groupname + "not found.");
+		}
+		User user = userService.saveUserWithGroup(userId, group);
 		return user;
 	}
 	

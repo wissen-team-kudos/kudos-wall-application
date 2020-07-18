@@ -10,16 +10,16 @@
     <div class="modal-body">
         <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f)" >
         <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Kudo Type:</label>
-            <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name">
+            <label for="recipient-name" class="col-form-label">Type the Kudo:</label>
+            <input type="text" ngbAutoFocus class="form-control" name="content" ngModel #name="ngModel" id="content">
         </div>
         <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Kudo Recipient:</label>
-            <input type="password" class="form-control" name="password" ngModel #password="ngModel" id="password">
+            <label for="recipient-name" class="col-form-label">This Kudo is for?:</label>
+            <input type="text" class="form-control" name="recipent" ngModel #password="ngModel" id="recipent">
         </div>
             <div class="modal-footer">
                 <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
-                <button type="submit" class="btn btn-primary">Join</button>
+                <button type="submit" class="btn btn-primary">Send</button>
             </div>
         </form>
     </div>

@@ -3,7 +3,9 @@
         <a ngbNavLink (click)="showKudos()">Wall</a>
         <ng-template ngbNavContent>
             <p>Show the list of Kudos in all User's Rooms</p>
-            <p *ngFor="let kudo of kudos" >{{kudo}}</p>
+            <div *ngFor="let kudo of kudos" >
+			<kudo-card [theKudo]="kudo"></kudo-card>
+			</div>
         </ng-template>
     </ng-container> 
     <ng-container ngbNavItem>
@@ -14,7 +16,6 @@
               <div class="col-8">
                 <div class="row row-cols-1 row-cols-md-2">
                   <div *ngFor="let group of groups" class="col mb-4">
-
                     <div class="card" style="width: 18rem;">
                       <!-- <img src="..." class="card-img-top" alt="..."> -->
                       <div class="card-body">
@@ -26,8 +27,7 @@
                           Share Room
                         </a>
                       </div>
-                    </div>  
-
+                    </div>
                   </div>
                 </div>
               </div>
