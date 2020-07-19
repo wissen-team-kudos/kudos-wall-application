@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Group } from '../models/group';
 import { User } from '../models/user';
@@ -80,6 +80,33 @@ export class GroupService {
       }
     ).subscribe(response =>{
       console.log(response);
+    });
+  }
+
+  addUserToGroup(userid: number, groupname: string, groupPassword: string) {
+    this.http.put(this.url + "/groupname/" + userid,
+      {
+        groupname: groupname,
+        password: groupPassword
+      },
+      {
+        observe : 'response',
+        responseType : 'json'
+      }
+    ).subscribe((response :HttpResponse<Group>) => {
+      let group : Group = <Group> response.body;
+      console.log(group);      
+    },
+    (error : HttpErrorResponse)=>{
+      if(error.status==404){
+        console.log("Not found: Invalid groupname");
+      }
+      else if(error.status==401){
+        console.log("Not auhorized: invalid password");
+      }
+      else if(error.status==400){
+        console.log("Bad request. user already present in group");
+      }
     });
   }
 
