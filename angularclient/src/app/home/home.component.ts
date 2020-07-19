@@ -139,8 +139,10 @@ export class HomeComponent implements OnInit {
 
       this.sharedService.groupAdded
       .subscribe(newGroup => {
+        if(!this.userGroups.includes(newGroup)){
           this.userGroups.push(newGroup);
           console.log(this.userGroups);
+        }
       });
       
       console.log(this.userGroups);
