@@ -44,10 +44,10 @@ export class HomeComponent implements OnInit {
     // userService.getUserByUsername("user2");
     // userService.getUserByUsername("user3");
 
-    // userService.addGroupToUser(authService.CurrentUserId(), "room100", "pass3");
-    // userService.addGroupToUser(authService.CurrentUserId(), "room3", "pass400");
-    // userService.addGroupToUser(authService.CurrentUserId(), "room3", "pass3");
-    // userService.addGroupToUser(authService.CurrentUserId(), "room3", "pass3");
+    // groupService.addUserToGroup(authService.CurrentUserId(), "room100", "pass3");
+    // groupService.addUserToGroup(authService.CurrentUserId(), "room3", "pass400");
+    // groupService.addUserToGroup(authService.CurrentUserId(), "room3", "pass3");
+    // groupService.addUserToGroup(authService.CurrentUserId(), "room3", "pass3");
 
     // let grp: Group = {
     //   groupname: "room5",
