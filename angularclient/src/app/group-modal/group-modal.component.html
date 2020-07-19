@@ -19,11 +19,17 @@
         <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f,0)" >
         <div class="form-group">
             <label for="recipient-name" class="col-form-label">Room Name:</label>
-            <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name">
+            <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name" required>
+            <div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+                <div *ngIf="name.errors.required">Room name is required</div>
+            </div>
         </div>
         <div class="form-group">
             <label for="recipient-name" class="col-form-label">Room Password:</label>
-            <input type="password" class="form-control" name="password" ngModel #password="ngModel" id="password">
+            <input type="password" class="form-control" name="password" ngModel #password="ngModel" id="password" required>
+            <div *ngIf="password.touched && !password.valid" class="alert alert-danger">
+                <div *ngIf="password.errors.required">Room password is required</div>
+            </div>
         </div>
             <div class="modal-footer">
                 <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
@@ -43,18 +49,25 @@
     </div>
     <div class="modal-body">
         <p>Enter room details</p>
-        <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f,1)" >
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Room Name:</label>
-            <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name">
-        </div>
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Room Password:</label>
-            <input type="password" class="form-control" name="password" ngModel #password="ngModel" id="password">
-        </div>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f,1)" >
+            <div *ngIf="formError.groupnameExists" class = "alert alert-danger">Group name already exists</div>
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Room Name:</label>
+                <input type="text" ngbAutoFocus class="form-control" name="name" ngModel #name="ngModel" id="name" required>
+                <div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+                    <div *ngIf="name.errors.required">Room name is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Room Password:</label>
+                <input type="password" class="form-control" name="password" ngModel #password="ngModel" id="password" required>
+                <div *ngIf="password.touched && !password.valid" class="alert alert-danger">
+                    <div *ngIf="password.errors.required">Room password is required</div>
+                </div>
+            </div>
             <div class="modal-footer">
                 <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
-                <button type="submit" class="btn btn-primary">Join</button>
+                <button type="submit" class="btn btn-primary" [disabled] = "!f.valid">Join</button>
             </div>
         </form>
     </div>

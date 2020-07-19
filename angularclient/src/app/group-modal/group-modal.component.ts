@@ -1,6 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
 import { SampleGroupService } from '../dummy-services/sample-group.service';
 import { GroupService } from '../services/group.service';
@@ -10,6 +11,7 @@ import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
 import { SharedService } from '../shared/shared.service';
 import { UserService } from '../services/user.service';
+import { error } from 'protractor';
 
 @Component({
   selector: 'group-modal',
@@ -18,16 +20,25 @@ import { UserService } from '../services/user.service';
 })
 export class GroupModalComponent {
   closeResult = '';
+  private modalRef: NgbModalRef;
+  formError : {
+    groupnameExists : boolean
+  };
 
   constructor(private modalService: NgbModal, 
               private groupService: GroupService,
               private userService: UserService,
               private authService: AuthenticationService,
               private sharedService: SharedService,
-              private sampleGroupService: SampleGroupService) {}
+              private sampleGroupService: SampleGroupService) {
+                this.formError = {
+                  groupnameExists : false
+                };
+              }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalRef = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'})
+    this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -93,9 +104,15 @@ export class GroupModalComponent {
 
         this.groupService.addGroup(group)
         .subscribe(response => {
+          this.modalRef.close();
           let newGroup : Group = <Group>response.body;
           console.log(newGroup);
           this.sharedService.groupAdded.next(newGroup);
+        },
+        (error: HttpErrorResponse)=>{
+          if(error.status==400){
+            this.formError.groupnameExists = true;
+          }
         });
       });
     }
