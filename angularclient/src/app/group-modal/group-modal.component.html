@@ -9,12 +9,13 @@
 
 <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Room Detatils</h4>
+      <h4 class="modal-title" id="modal-basic-title">Join Room</h4>
       <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
+        <p>Enter room details</p>
         <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f,0)" >
         <div class="form-group">
             <label for="recipient-name" class="col-form-label">Room Name:</label>

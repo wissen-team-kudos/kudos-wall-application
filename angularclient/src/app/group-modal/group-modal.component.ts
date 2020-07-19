@@ -53,8 +53,23 @@ export class GroupModalComponent {
       password : form.value.password
     };
 
-    if(value == 0)
-    console.log("Joining Group "+group.groupname);
+    if(value == 0){
+    
+      console.log("Joining Group "+group.groupname);
+
+      this.userService.addGroupToUser(userId,group.groupname,group.password)
+      .subscribe(response =>{
+        let user : User = <User>response.body
+        let userGroup : Group = <Group>user.groups.slice(-1)[0];
+        
+        this.groupService.getGroup(userGroup.id)
+        .subscribe(response =>{
+          let newGroup : Group = <Group>response.body;
+          console.log(newGroup);
+          this.sharedService.groupAdded.next(newGroup);
+        })
+      });
+    }
 
     if(value == 1){
       
