@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.kudo.entity.Group;
 import com.demo.kudo.entity.User;
+import com.demo.kudo.models.GroupAuthenticationRequest;
 import com.demo.kudo.service.GroupService;
 
 @RestController
@@ -75,5 +76,27 @@ public class GroupController {
 		groupService.deleteGroup(groupId);
 		
 		return "Deleted group "+groupId;
+	}
+	
+	@PutMapping("/groups/groupname/{userId}")
+	public ResponseEntity<Group> updateUserInGroup(@PathVariable int userId, @RequestBody GroupAuthenticationRequest request) {
+		Group group;
+		try {
+			group = groupService.getGroup(request.getGroupname());
+		}
+		catch(EmptyResultDataAccessException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		if(!group.getPassword().equals(request.getPassword())) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+		}
+		for(User user : group.getUsers()) {
+			if(user.getId() == userId) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			}
+		}
+		//User user = userService.saveUserWithGroup(userId, group);
+		Group groupToInsert = groupService.saveGroupWithUser(userId, group);
+		return ResponseEntity.ok(groupToInsert);
 	}
 }
