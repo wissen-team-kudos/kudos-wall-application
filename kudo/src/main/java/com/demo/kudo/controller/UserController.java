@@ -3,6 +3,7 @@ package com.demo.kudo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -87,11 +88,14 @@ public class UserController {
 	
 	@PutMapping("/users/groupname/{userId}")
 	public ResponseEntity<User> updateGrouptoUser(@PathVariable int userId, @RequestBody GroupAuthenticationRequest request) {
-		Group group = groupService.getGroup(request.getGroupname());
-		if(group == null) {
+		Group group;
+		try {
+			group = groupService.getGroup(request.getGroupname());
+		}
+		catch(EmptyResultDataAccessException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
-		else if(!group.getPassword().equals(request.getPassword())) {
+		if(!group.getPassword().equals(request.getPassword())) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 		for(User user : group.getUsers()) {
