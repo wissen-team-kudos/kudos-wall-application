@@ -1,9 +1,14 @@
 <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{theGroup.groupname}}</h5>
-      <div *ngFor="let user of theGroup.users">
+      <div *ngFor="let user of theGroup.users.slice(0,2)">
         <p class="card-text">{{user.username}} </p>
       </div>
+      <a *ngIf="theGroup.users.length > 2" href="#" 
+          (click)="open(content)">
+        (view all)
+      </a>
+      <br>
       <kudo-modal></kudo-modal>
       <a href="#" class="btn btn-link" 
           (click)="onShare(theGroup.groupname)">
@@ -11,3 +16,20 @@
       </a>
     </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{theGroup.groupname}}</h4>
+    <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Room Participants</p>
+    <div *ngFor="let user of theGroup.users">
+      <ul>
+        <li class="card-text">{{user.username}}</li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
