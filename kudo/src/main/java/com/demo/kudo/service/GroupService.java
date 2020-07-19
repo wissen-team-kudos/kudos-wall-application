@@ -51,5 +51,11 @@ public class GroupService implements IGroupService {
 	public Group getGroup(String groupname) {
 		return groupDAO.getGroup(groupname);
 	}
+	
+	@Transactional
+	public Group saveGroupWithUser(int userId,Group group) {
+		
+		 return groupDAO.saveGroupWithUser(userId,group);	
+	}
 
 }
