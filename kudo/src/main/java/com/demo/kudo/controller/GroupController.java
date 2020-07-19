@@ -3,6 +3,9 @@ package com.demo.kudo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,10 +45,15 @@ public class GroupController {
 	}
 	
 	@PostMapping("/groups")
-	public Group addGroup(@RequestBody Group group) {
+	public ResponseEntity<Group> addGroup(@RequestBody Group group) {
+		try {
+			Group groupToInsert = groupService.getGroup(group.getGroupname());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		} catch(EmptyResultDataAccessException e) {
+			group.setId(0);
+			return ResponseEntity.ok(groupService.saveGroup(group));
+		}
 		
-		group.setId(0);
-		return groupService.saveGroup(group);
 
 	}
 
