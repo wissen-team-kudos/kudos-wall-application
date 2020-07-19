@@ -88,8 +88,16 @@ public class UserController {
 	@PutMapping("/users/groupname/{userId}")
 	public ResponseEntity<User> updateGrouptoUser(@PathVariable int userId, @RequestBody GroupAuthenticationRequest request) {
 		Group group = groupService.getGroup(request.getGroupname());
-		if(group == null || !group.getPassword().equals(request.getPassword())) {
+		if(group == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		else if(!group.getPassword().equals(request.getPassword())) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+		}
+		for(User user : group.getUsers()) {
+			if(user.getId() == userId) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			}
 		}
 		User user = userService.saveUserWithGroup(userId, group);
 		return ResponseEntity.ok(user);

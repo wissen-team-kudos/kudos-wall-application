@@ -89,7 +89,9 @@ export class UserService {
   /*
     ReturnType : HttpResponse
     if groupname and password are valid combination: status=200
-    else: status=401
+    else if groupname does not exist : status=404
+    else if password is invalid: status=401
+    else if user already present in group: status=400 
   */
   addGroupToUser(userid: number, groupname: string, groupPassword: string) {
     this.http.put(this.url + "/groupname/" + userid,
@@ -102,8 +104,14 @@ export class UserService {
         responseType : 'json'
       }
     ).subscribe(response => {
-      if(response.status==401){
-        console.log("Not auhorized: invalid groupname or password");
+      if(response.status==404){
+        console.log("Not found: Invalid groupname");
+      }
+      else if(response.status==401){
+        console.log("Not auhorized: invalid password");
+      }
+      else if(response.status==400){
+        console.log("Bad request. user already present in group");
       }
       else{
         let user : User = <User> response.body;
