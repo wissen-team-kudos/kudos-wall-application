@@ -25,4 +25,8 @@ export class BsNavbarComponent implements OnInit {
     this.authService.logout();
   }
 
+  getUsername() {
+    return this.authService.CurrentUsername();
+  }
+
 }
