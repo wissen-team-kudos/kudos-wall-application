@@ -22,7 +22,10 @@ export class GroupModalComponent {
   closeResult = '';
   private modalRef: NgbModalRef;
   formError : {
-    groupnameExists : boolean
+    groupnameExists : boolean,
+    userAlreadyPresent : boolean,
+    groupnameNotFound : boolean,
+    passwordError : boolean
   };
 
   constructor(private modalService: NgbModal, 
@@ -32,7 +35,10 @@ export class GroupModalComponent {
               private sharedService: SharedService,
               private sampleGroupService: SampleGroupService) {
                 this.formError = {
-                  groupnameExists : false
+                  groupnameExists : false,
+                  userAlreadyPresent : false,
+                  groupnameNotFound : false,
+                  passwordError : false
                 };
               }
 
@@ -57,6 +63,12 @@ export class GroupModalComponent {
 
   onSubmit(form: NgForm, value: number){
 
+    this.formError = {
+      groupnameExists : false,
+      userAlreadyPresent : false,
+      groupnameNotFound : false,
+      passwordError : false
+    };
     let userId : number = this.authService.CurrentUserId();
 
     let group : Group = {
@@ -70,6 +82,7 @@ export class GroupModalComponent {
 
       this.userService.addGroupToUser(userId,group.groupname,group.password)
       .subscribe(response =>{
+        this.modalRef.close();
         let user : User = <User>response.body
         let userGroup : Group = <Group>user.groups.slice(-1)[0];
         
@@ -79,6 +92,17 @@ export class GroupModalComponent {
           console.log(newGroup);
           this.sharedService.groupAdded.next(newGroup);
         })
+      },
+      (error : HttpErrorResponse)=>{
+        if(error.status==404){
+          this.formError.groupnameNotFound = true;
+        }
+        else if(error.status==401){
+          this.formError.passwordError = true;
+        }
+        else if(error.status==400){
+          this.formError.userAlreadyPresent = true;
+        }
       });
     }
 
