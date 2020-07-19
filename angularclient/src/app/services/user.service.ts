@@ -1,5 +1,5 @@
 import { AuthenticationService } from './authentication.service';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 
@@ -103,21 +103,20 @@ export class UserService {
         observe : 'response',
         responseType : 'json'
       }
-    ).subscribe(response => {
-      if(response.status==404){
+    ).subscribe((response :HttpResponse<User>) => {
+        let user : User = <User> response.body;
+        console.log(user);      
+    },
+    (error : HttpErrorResponse)=>{
+      if(error.status==404){
         console.log("Not found: Invalid groupname");
       }
-      else if(response.status==401){
+      else if(error.status==401){
         console.log("Not auhorized: invalid password");
       }
-      else if(response.status==400){
+      else if(error.status==400){
         console.log("Bad request. user already present in group");
       }
-      else{
-        let user : User = <User> response.body;
-        console.log(user);
-      }
-      
     });
   }
 }
