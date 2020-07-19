@@ -92,4 +92,15 @@ public class GroupDAO implements IGroupDAO {
 		return (Group)query.getSingleResult();
 	}
 
+	
+	public Group saveGroupWithUser(int theId,Group group) {
+
+		Session currentSession = entityManager.unwrap(Session.class);
+		Group groupToInsert = currentSession.get(Group.class, group.getId());
+		User theUser = currentSession.get(User.class, theId);
+		groupToInsert.addUser(theUser);
+		currentSession.saveOrUpdate(groupToInsert);	
+		
+		return groupToInsert;
+	}	
 }
