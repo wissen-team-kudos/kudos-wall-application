@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit {
 
     this.userGroups=[];
 
-    let sub = this.groupService.getUser(userId)
+    let sub = this.userService.getUser(userId)
     .subscribe(response => {
       let user : User= <User>response.body;
       let groupList : Group[] = <Group[]>user.groups;
@@ -146,9 +146,5 @@ export class HomeComponent implements OnInit {
       console.log(this.userGroups);
     });
   }
-
-  onShare(groupname: String){
-    alert("Sharing "+groupname);
-  }
-
+  
 }
