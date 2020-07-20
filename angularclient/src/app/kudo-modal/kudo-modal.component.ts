@@ -27,6 +27,8 @@ export class KudoModalComponent implements OnInit {
   modalRef : NgbModalRef;
   @ViewChild('send_kudo_form', { static: true }) send_kudo_form;
 
+  newuserList : {id: number, username: string, password: string}[];
+  
 	constructor(private modalService: NgbModal, 
 				private kudoService: KudosService,
 				private authService: AuthenticationService,
@@ -46,6 +48,9 @@ export class KudoModalComponent implements OnInit {
  }
 
   open(content) {
+    for (let index = 0; index < this.theGroup.users.length; index++) {
+      this.userlist[index] = {user : this.theGroup.users[index], checked : false};
+    }
     this.modalRef = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -71,8 +76,8 @@ export class KudoModalComponent implements OnInit {
 	theKudo.content=form.value.content;
 	
     let userId : number = this.authService.CurrentUserId();
-    let selectedUsersList = Object.assign([], this.selectedOptions);
-	this.userService.getUser(userId)	
+    let selectedUsersList = this.newuserList;
+	  this.userService.getUser(userId)	
         .subscribe(response => {
           let newuser : User = <User>response.body;
           theKudo.author={
@@ -120,6 +125,7 @@ export class KudoModalComponent implements OnInit {
     }
     else{
       this.isUserListEmpty = false;
+      this.newuserList= Object.assign([], this.selectedOptions);
       this.modalRef.close();
       this.open(this.send_kudo_form);
     }
