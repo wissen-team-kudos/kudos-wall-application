@@ -37,11 +37,8 @@ export class KudoModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserListEmpty = false;
-    this.userlist = new Array();
-    for (let index = 0; index < this.theGroup.users.length; index++) {
-      if(this.theGroup.users[index].username != this.authService.CurrentUsername())
-        this.userlist.push({user : this.theGroup.users[index], checked : false});
-    }
+    this.cleanUserlist();
+    console.log(this.userlist);
   }
 
   ngAfterViewInit() {
@@ -49,9 +46,7 @@ export class KudoModalComponent implements OnInit {
  }
 
   open(content) {
-    for (let index = 0; index < this.theGroup.users.length; index++) {
-      this.userlist[index] = {user : this.theGroup.users[index], checked : false};
-    }
+    this.cleanUserlist();
     this.modalRef = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -109,9 +104,7 @@ export class KudoModalComponent implements OnInit {
         console.log(this.selectedOptions);
     // this.theKudo.content=form.value.name;
     // this.kudoService.addKudo(this.theKudo);
-    for (let index = 0; index < this.theGroup.users.length; index++) {
-      this.userlist[index] = {user : this.theGroup.users[index], checked : false};
-    }
+    this.cleanUserlist();
   }
 
   get selectedOptions() { // right now: ['1','3']
@@ -131,5 +124,13 @@ export class KudoModalComponent implements OnInit {
       this.open(this.send_kudo_form);
     }
 		
+  }
+
+  cleanUserlist(){
+    this.userlist = new Array();
+    for (let index = 0; index < this.theGroup.users.length; index++) {
+      if(this.theGroup.users[index].username != this.authService.CurrentUsername())
+        this.userlist.push({user : this.theGroup.users[index], checked : false});
+    }
   }
 }
