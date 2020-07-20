@@ -1,4 +1,26 @@
-<button class="btn btn-lg btn-primary" (click)="open(content)">Send Kudos</button>
+<button class="btn btn-lg btn-primary" (click)="open(list_of_users)">Send Kudos</button>
+
+<ng-template #list_of_users let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Room participants</h4>
+      <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="modal.close('Save click'); open(content)" >
+            <ul>
+                <li *ngFor="let iteration of userlist">
+                    <input [(ngModel)] = "iteration.checked"  type="checkbox" value="{{iteration.user.username}}" name="{{iteration.user.username}}">{{iteration.user.username}}
+                </li>
+            </ul>
+            <div class="modal-footer">
+                <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
+                <button type="submit" class="btn btn-primary">Next</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
 
 <ng-template #content let-modal>
     <div class="modal-header">

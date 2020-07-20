@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Group } from './../models/group';
+import { Component, OnInit, Input } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
 import { KudosService } from '../services/kudos.service';
@@ -12,11 +13,21 @@ import { Kudos} from '../models/kudos';
 
 export class KudoModalComponent implements OnInit {
   closeResult = '';
-	theKudo:Kudos;
+  theKudo:Kudos;
+  @Input() theGroup : Group;
+  userlist : {
+    user : {id: number, username: string, password: string},
+    checked: boolean
+  }[];
 
   constructor(private modalService: NgbModal, private kudoService: KudosService) { }
 
   ngOnInit(): void {
+    this.userlist = new Array();
+    console.log(this.theGroup)
+    for (let index = 0; index < this.theGroup.users.length; index++) {
+      this.userlist[index] = {user : this.theGroup.users[index], checked : false};
+    }
   }
 
   open(content) {
@@ -39,7 +50,14 @@ export class KudoModalComponent implements OnInit {
 
   onSubmit(form: NgForm){
 
-    this.theKudo.content=form.value.name;
-    this.kudoService.addKudo(this.theKudo);
+    console.log(this.selectedOptions);
+    // this.theKudo.content=form.value.name;
+    // this.kudoService.addKudo(this.theKudo);
+  }
+
+  get selectedOptions() { // right now: ['1','3']
+    return this.userlist
+              .filter(opt => opt.checked)
+              .map(opt => opt.user)
   }
 }
