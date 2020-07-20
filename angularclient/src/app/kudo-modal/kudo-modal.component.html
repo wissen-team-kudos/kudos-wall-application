@@ -10,11 +10,12 @@
     <div class="modal-body">
         <form #f="ngForm" (ngSubmit)="testIfEmpty()" >
             <div *ngIf="isUserListEmpty" class = "alert alert-danger">At least one user should be selected</div>
-            <ul>
-                <li *ngFor="let iteration of userlist">
-                    <input [(ngModel)] = "iteration.checked"  type="checkbox" value="{{iteration.user.username}}" name="{{iteration.user.username}}">{{iteration.user.username}}
-                </li>
-            </ul>
+            <div class="inputGroup">
+                <div  *ngFor="let iteration of userlist">
+                    <input [(ngModel)] = "iteration.checked"  type="checkbox" id="{{iteration.user.username}}" value="{{iteration.user.username}}" name="{{iteration.user.username}}">
+                    <label for="{{iteration.user.username}}">{{iteration.user.username}}</label>
+                </div>
+            </div>
             <div class="modal-footer">
                 <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
                 <button type="submit" class="btn btn-primary rounded-pill">Next &raquo;</button>
@@ -34,7 +35,7 @@
         <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f)" >
         <div class="form-group">
             <label for="content" class="col-form-label">Type the Kudo:</label>
-            <input required type="text" ngbAutoFocus class="form-control" ngModel #content="ngModel" name ="content" id="content">
+            <input required type="text" class="form-control" ngModel #content="ngModel" name ="content" id="content">
         	<div class="alert alert-danger" *ngIf="content.touched && !content.valid ">Kudo cannot be empty</div>
         </div> 
 		<!--  <mandar component/>--> 
