@@ -39,39 +39,13 @@ export class HomeComponent implements OnInit {
 				) {
     this.kudos= this.sampleKudosService.getKudos();
 
-    /*Author: Mandar. Testing API*/
-    // userService.getUserByUsername("user1");
-    // userService.getUserByUsername("user2");
-    // userService.getUserByUsername("user3");
-
-    // groupService.addUserToGroup(authService.CurrentUserId(), "room100", "pass3");
-    // groupService.addUserToGroup(authService.CurrentUserId(), "room3", "pass400");
-    // groupService.addUserToGroup(authService.CurrentUserId(), "room3", "pass3");
-    // groupService.addUserToGroup(authService.CurrentUserId(), "room3", "pass3");
-
-    // let grp: Group = {
-    //   groupname: "room5",
-    //   password: "pass4",
-    //   users: [
-    //     {
-    //     id: 1,
-    //     username: "user1",
-    //     password: "pass1"
-    //   }]
-    // };
-    // groupService.addGroup(grp)
-    // .subscribe((response : HttpResponse<Group>) =>{
-    //   console.log(response.body);
-    // },
-    // (error : HttpErrorResponse)=>{
-    //   console.log(error)
-    // });
-
-    /*Testing finished here: Mandar*/
   }
 
 
-  ngOnInit(): void {  }
+  ngOnInit(): void { 
+    this.showKudos();
+    this.showGroups();
+   }
   
   showKudos(){
     this.clicked=true;

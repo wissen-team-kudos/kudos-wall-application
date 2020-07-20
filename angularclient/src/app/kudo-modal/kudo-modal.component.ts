@@ -39,7 +39,8 @@ export class KudoModalComponent implements OnInit {
     this.isUserListEmpty = false;
     this.userlist = new Array();
     for (let index = 0; index < this.theGroup.users.length; index++) {
-      this.userlist[index] = {user : this.theGroup.users[index], checked : false};
+      if(this.theGroup.users[index].username != this.authService.CurrentUsername())
+        this.userlist.push({user : this.theGroup.users[index], checked : false});
     }
   }
 
