@@ -16,15 +16,12 @@ export class UserService {
     ) { }
 
   getUser(id:number){
-    this.http.get(this.url + "/" + id,
+    return this.http.get(this.url + "/" + id,
        {
         observe:'response',
         responseType: 'json'
        }  
-    ).subscribe(response => {
-      let user : User = <User>response.body;
-      console.log(user);
-    });
+    )
   }
 
   getAllUsers(){
@@ -75,15 +72,11 @@ export class UserService {
   }
 
   getUserByUsername(username: string) {
-    this.http.get(this.url + "/username/" + username,
+ 	return   this.http.get(this.url + "/username/" + username,
     {
       observe : 'response',
       responseType : 'json'
-    }
-    ).subscribe(response=> {
-      let user : User = <User>response.body;
-      console.log(user);
-    });
+    } )
   }
 
   addGroupToUser(userid: number, groupname: string) {
@@ -98,4 +91,12 @@ export class UserService {
       console.log(user);
     });
   }
+	getKudosOfUser(id:number){
+		return this.http.get(this.url+ "/userid/"+ id ,
+		 {
+    	    observe:'response',
+        	responseType: 'json'
+	     }  
+		);
+}
 }

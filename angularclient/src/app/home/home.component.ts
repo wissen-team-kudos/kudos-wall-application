@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   currentJustify='fill'
   clicked=false;
 
-  kudos:Kudos[];
+  kudos:Kudos[]=[];
   userGroups : Group[]=[];
  
 
@@ -69,8 +69,14 @@ export class HomeComponent implements OnInit {
     this.userService.updateUser(userToUpdate);
     this.userService.deleteUser(6);
     */
-   this.kudos= this.sampleKudosService.getKudos();
+
+    let userId : number = this.authService.CurrentUserId();
+   
+	this.userService.getKudosOfUser(userId)
+	.subscribe(response=>{
+	this.kudos=<Kudos[]>response.body;
     console.log(this.kudos)
+	});
   }
 
   showGroups(){

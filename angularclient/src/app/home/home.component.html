@@ -22,7 +22,7 @@
                         <div *ngFor="let user of group.users">
                           <p class="card-text">{{user.username}} </p>
                         </div>
-                        <kudo-modal></kudo-modal>
+                        <kudo-modal [currentGroup]="group" ></kudo-modal>
                         <a href="#" class="btn btn-link" 
                             (click)="onShare(group.groupname)">
                           Share Room
