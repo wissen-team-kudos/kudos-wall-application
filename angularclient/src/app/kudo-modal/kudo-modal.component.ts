@@ -25,7 +25,7 @@ export class KudoModalComponent implements OnInit {
   }[];
   isUserListEmpty: boolean;
   modalRef : NgbModalRef;
-  @ViewChild('content', { static: true }) content;
+  @ViewChild('send_kudo_form', { static: true }) send_kudo_form;
 
 	constructor(private modalService: NgbModal, 
 				private kudoService: KudosService,
@@ -36,7 +36,6 @@ export class KudoModalComponent implements OnInit {
   ngOnInit(): void {
     this.isUserListEmpty = false;
     this.userlist = new Array();
-    console.log(this.theGroup)
     for (let index = 0; index < this.theGroup.users.length; index++) {
       this.userlist[index] = {user : this.theGroup.users[index], checked : false};
     }
@@ -72,7 +71,7 @@ export class KudoModalComponent implements OnInit {
 	theKudo.content=form.value.content;
 	
     let userId : number = this.authService.CurrentUserId();
-
+    let selectedUsersList = Object.assign([], this.selectedOptions);
 	this.userService.getUser(userId)	
         .subscribe(response => {
           let newuser : User = <User>response.body;
@@ -81,8 +80,10 @@ export class KudoModalComponent implements OnInit {
 							username: newuser.username,
 							password: newuser.password
 								};
-	
-    theKudo.users=this.selectedOptions;
+    
+    console.log(selectedUsersList)
+    theKudo.users=selectedUsersList;
+    console.log(theKudo)
 
 		theKudo.groups=[];
 		theKudo.groups.push(
@@ -99,8 +100,7 @@ export class KudoModalComponent implements OnInit {
             console.log(newKudo);
           });
         });
-
-    console.log(this.selectedOptions);
+        console.log(this.selectedOptions);
     // this.theKudo.content=form.value.name;
     // this.kudoService.addKudo(this.theKudo);
     for (let index = 0; index < this.theGroup.users.length; index++) {
@@ -121,7 +121,7 @@ export class KudoModalComponent implements OnInit {
     else{
       this.isUserListEmpty = false;
       this.modalRef.close();
-      this.open(this.content);
+      this.open(this.send_kudo_form);
     }
 		
   }
