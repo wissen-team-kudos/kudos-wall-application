@@ -16,17 +16,6 @@ export class UserService {
     ) { }
 
   getUser(id:number){
-    // this.http.get(this.url + "/" + id,
-    //    {
-    //     observe:'response',
-    //     responseType: 'json'
-    //    }  
-    // )
-    // .subscribe(response => {
-    //   let user : User = <User>response.body;
-    //   console.log(user);
-    // });
-
     return this.http.get(this.url + "/" + id,
        {
         observe:'response',
@@ -83,15 +72,11 @@ export class UserService {
   }
 
   getUserByUsername(username: string) {
-    this.http.get(this.url + "/username/" + username,
+ 	return   this.http.get(this.url + "/username/" + username,
     {
       observe : 'response',
       responseType : 'json'
-    }
-    ).subscribe(response=> {
-      let user : User = <User>response.body;
-      console.log(user);
-    });
+    } )
   }
 
   /*
@@ -128,4 +113,12 @@ export class UserService {
     //   }
     // });
   }
+	getKudosOfUser(id:number){
+		return this.http.get(this.url+ "/userid/"+ id ,
+		 {
+    	    observe:'response',
+        	responseType: 'json'
+	     }  
+		);
+}
 }

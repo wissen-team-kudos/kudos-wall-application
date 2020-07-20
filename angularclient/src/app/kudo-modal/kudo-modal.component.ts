@@ -1,9 +1,13 @@
-import { Group } from './../models/group';
 import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
 import { KudosService } from '../services/kudos.service';
+import { UserService } from '../services/user.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { Kudos} from '../models/kudos';
+import { Group} from '../models/group';
+import { User} from '../models/user';
+import { SampleUserService } from '../dummy-services/sample-user.service';
 
 @Component({
   selector: 'kudo-modal',
@@ -23,7 +27,11 @@ export class KudoModalComponent implements OnInit {
   modalRef : NgbModalRef;
   @ViewChild('content', { static: true }) content;
 
-  constructor(private modalService: NgbModal, private kudoService: KudosService) { }
+	constructor(private modalService: NgbModal, 
+				private kudoService: KudosService,
+				private authService: AuthenticationService,
+				private sampleUserService: SampleUserService,
+				private userService: UserService) { }
 
   ngOnInit(): void {
     this.isUserListEmpty = false;
@@ -57,7 +65,40 @@ export class KudoModalComponent implements OnInit {
     }
   }
 
+
   onSubmit(form: NgForm){
+	let theKudo:Kudos={content:"", users:[], groups:[], author:null};
+
+	theKudo.content=form.value.content;
+	
+    let userId : number = this.authService.CurrentUserId();
+
+	this.userService.getUser(userId)	
+        .subscribe(response => {
+          let newuser : User = <User>response.body;
+          theKudo.author={
+							id: newuser.id,
+							username: newuser.username,
+							password: newuser.password
+								};
+	
+    theKudo.users=this.selectedOptions;
+
+		theKudo.groups=[];
+		theKudo.groups.push(
+    	    {
+        	  id: this.theGroup.id,
+	          groupname: this.theGroup.groupname,
+			  password: this.theGroup.password
+        });
+        
+    console.log("the kudo to be added ");
+    this.kudoService.addKudo(theKudo)
+        .subscribe(response => {
+            let newKudo : Kudos = <Kudos>response.body;
+            console.log(newKudo);
+          });
+        });
 
     console.log(this.selectedOptions);
     // this.theKudo.content=form.value.name;
@@ -82,5 +123,6 @@ export class KudoModalComponent implements OnInit {
       this.modalRef.close();
       this.open(this.content);
     }
+		
   }
 }

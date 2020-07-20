@@ -12,18 +12,11 @@ export class KudosService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthenticationService
     ) { }
 
   getKudo(id:number){
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = "Bearer " + token;
-    headers = headers.set("Authorization", tokenHeader);
-    console.log(headers.get("Authorization"));
-    this.http.get(this.url + "/" + id,
+    return this.http.get(this.url + "/" + id,
        {
-        headers: headers,
         observe:'response',
         responseType: 'json'
        }  
@@ -34,14 +27,8 @@ export class KudosService {
   }
 
   getAllKudos(){
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = "Bearer " + token;
-    headers = headers.set("Authorization", tokenHeader);
-    console.log(headers.get("Authorization"));
-    this.http.get(this.url,
+    return this.http.get(this.url,
        {
-        headers: headers,
         observe:'response',
         responseType: 'json'
        }  
@@ -52,30 +39,17 @@ export class KudosService {
   }
 
   addKudo(kudo : Kudos) {
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = 'Bearer ' + token;
-    headers = headers.set('Authorization', tokenHeader);
-    this.http.post(this.url, kudo,
+    return this.http.post(this.url, kudo,
       {
-        headers : headers,
         observe : 'response',
         responseType : 'json'
       }
-    ).subscribe(response => {
-      let kudo : Kudos = <Kudos> response.body;
-      console.log(kudo);
-    });
+    )
   }
 
   updateKudo(kudo : Kudos) {
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = 'Bearer ' + token;
-    headers = headers.set('Authorization', tokenHeader);
-    this.http.put(this.url, kudo,
+    return this.http.put(this.url, kudo,
       {
-        headers : headers,
         observe : 'response',
         responseType : 'json'
       }
@@ -86,13 +60,8 @@ export class KudosService {
   }
 
   deleteKudo(id : number) {
-    let headers = new HttpHeaders();
-    let token = localStorage.getItem('token');
-    let tokenHeader = 'Bearer ' + token;
-    headers = headers.set('Authorization', tokenHeader);
     this.http.delete(this.url + '/' + id,
       {
-        headers : headers,
         observe : 'response',
         responseType : 'text'
       }
