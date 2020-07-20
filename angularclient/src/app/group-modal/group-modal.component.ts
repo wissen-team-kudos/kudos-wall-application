@@ -43,7 +43,13 @@ export class GroupModalComponent {
               }
 
   open(content) {
-    this.modalRef = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'})
+    this.formError = {
+      groupnameExists : false,
+      userAlreadyPresent : false,
+      groupnameNotFound : false,
+      passwordError : false
+    };
+    this.modalRef = this.modalService.open(content, {size: 'sm',centered:true, ariaLabelledBy: 'modal-basic-title'});
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

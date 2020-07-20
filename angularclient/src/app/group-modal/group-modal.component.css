@@ -1,3 +1,12 @@
 .close{
     color: red
 }
+
+.form-control.ng-touched.ng-invalid {
+    border: 2px solid red;
+}
+
+.btn-lg.btn-primary:hover {
+    background-color:white;
+    color: dodgerblue;
+  }
