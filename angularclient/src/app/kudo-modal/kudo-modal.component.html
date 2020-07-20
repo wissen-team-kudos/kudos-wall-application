@@ -1,4 +1,4 @@
-<button class="btn btn-lg btn-primary" (click)="open(list_of_users)">Send Kudos</button>
+<button class="btn btn-primary" (click)="open(list_of_users)">Send Kudos</button>
 
 <ng-template #list_of_users let-modal>
     <div class="modal-header">
@@ -17,7 +17,7 @@
             </ul>
             <div class="modal-footer">
                 <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
-                <button type="submit" class="btn btn-primary">Next</button>
+                <button type="submit" class="btn btn-primary rounded-pill">Next &raquo;</button>
             </div>
         </form>
     </div>
@@ -39,7 +39,7 @@
         </div> 
 		<!--  <mandar component/>--> 
 			<div class="modal-footer">
-                <button type="submit" class="btn btn-primary" [disabled]="!content.valid">Send</button>
+                <button type="submit" class="btn btn-primary rounded-pill" [disabled]="!content.valid">Send</button>
             </div>
         </form>
     </div>
