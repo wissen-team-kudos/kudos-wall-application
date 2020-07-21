@@ -1,4 +1,4 @@
-<div class="col-12">
+<div class="col-12 flex">
    	<div class="row row-cols-1 row-cols-md-3">
        	<div class="col mb-2">
 			<div class="card" style="width: 14rem;">
@@ -8,10 +8,10 @@
 					
 					<div *ngFor="let user of theKudo.users">
     					<div class="col-12">
-			        		<div class="row row-cols-1 row-cols-md-1">
+			        		<div class="row row-cols-2 row-cols-md-1">
 			            		<div class="col mb-0">
 			                	    <div class="card" style="width: 6rem;">
-               				  			<div class="card-body">
+               				  			<div clas="card-body">
 		                        			<h6 class="card-text">{{user.username}}</h6>
 										</div>
 									</div>

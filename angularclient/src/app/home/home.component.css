@@ -1,0 +1,18 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+}
+.wrapper > div {
+  flex: 1 1 150px;
+}
+
+p.a , a{
+	font-family:Arial;
+	font-size:20px;
+	text-align:center;
+	word-spacing:10px;
+	line-height:30px;	
+	font-weight:bold;
+}

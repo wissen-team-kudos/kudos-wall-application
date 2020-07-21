@@ -37,10 +37,13 @@
             <input required type="text" ngbAutoFocus class="form-control" ngModel #content="ngModel" name ="content" id="content">
         	<div class="alert alert-danger" *ngIf="content.touched && !content.valid ">Kudo cannot be empty</div>
         </div> 
-		<!--  <mandar component/>--> 
+ 
 			<div class="modal-footer">
                 <button type="submit" class="btn btn-primary" [disabled]="!content.valid">Send</button>
-            </div>
+<!--      			<div class="alert alert-success">
+					<strong>Success!</strong> 
+					</div>
+-->		    </div>
         </form>
     </div>
 </ng-template>
