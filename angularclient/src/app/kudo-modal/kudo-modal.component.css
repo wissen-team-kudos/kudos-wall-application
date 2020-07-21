@@ -109,4 +109,9 @@
     background-color: #9AA3AC;
     padding: 0 8px;
   }
+
+  .form-control.ng-touched.ng-invalid {
+    border: 2px solid red;
+}
+
   

@@ -2,9 +2,9 @@
 <button class="btn btn-primary rounded-pill" (click)="open(list_of_users)">Send Kudos</button>
 
 <ng-template #list_of_users let-modal>
-    <div class="modal-header">
+    <div class="modal-header bg-primary text-light">
       <h4 class="modal-title" id="modal-basic-title">Select participants</h4>
-      <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <button type="button" class="close btn text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -25,17 +25,17 @@
 </ng-template>
 
 <ng-template #send_kudo_form let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Kudos</h4>
-      <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header bg-primary text-light">
+      <h4 class="modal-title" id="modal-basic-title">Kudos card</h4>
+      <button type="button" class="close btn text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
         <form #f="ngForm" (ngSubmit)="modal.close('Save click'); onSubmit(f)" >
         <div class="form-group">
-            <label for="content" class="col-form-label">Type the Kudo:</label>
-            <input required type="text" class="form-control" ngModel #content="ngModel" name ="content" id="content">
+            <label for="content" class="col-form-label">Kudo content</label>
+            <input required type="text" class="form-control" ngModel #content="ngModel" name ="content" id="content" placeholder="Type your kudos here">
         	<div class="alert alert-danger" *ngIf="content.touched && !content.valid ">Kudo cannot be empty</div>
         </div> 
 		<!--  <mandar component/>--> 

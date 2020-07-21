@@ -1,7 +1,3 @@
-.close{
-    color: white
-}
-
 .form-control.ng-touched.ng-invalid {
     border: 2px solid red;
 }
@@ -10,10 +6,3 @@
     background-color:white;
     color: dodgerblue;
   }
-
-.modal-header{
-    background-color: #007bff;
-}
-.modal-title{
-    color: white;
-}

@@ -17,15 +17,17 @@
 
 <ng-template #content let-modal>
   <div class="modal-header bg-primary text-light">
-    <h4 class="modal-title" id="modal-basic-title">{{theGroup.groupname}}</h4>
+    <div class="text-center">
+      <h4 class="modal-title" id="modal-basic-title">{{theGroup.groupname}}</h4>
+    </div>
     <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span class="text-white" aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
+      <h5 class="" id="modal-basic-title">Room participants</h5>
       <ul class="list-group list-group-flush">
         <li *ngFor="let user of theGroup.users" class="list-group-item">{{user.username}}</li>
       </ul>
-    </div>
   </div>
 </ng-template>
