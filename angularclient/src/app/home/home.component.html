@@ -2,8 +2,7 @@
     <ng-container ngbNavItem >
         <a ngbNavLink (click)="showKudos()">Wall</a>
         <ng-template ngbNavContent>
-<!--            <div class="d-flex flex-sm-row bd-highlight mb-3"><div class="p-2 bd-highlight"*ngFor="let kudo of kudos" >
--->             <div class="wrapper"><div *ngFor="let kudo of kudos"> 
+            <div class="wrapper"><div *ngFor="let kudo of kudos"> 
 				<kudo-card [theKudo]="kudo"></kudo-card>
             </div></div>
         </ng-template>
@@ -17,19 +16,6 @@
               <div class="wrapper row row-cols-1 row-cols-md-2">
                   <div *ngFor="let group of userGroups" class="col mb-4">
                     <group-card [theGroup]="group"></group-card>
-                    <!-- <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">{{group.groupname}}</h5>
-                        <div *ngFor="let user of group.users">
-                          <p class="card-text">{{user.username}} </p>
-                        </div>
-                        <kudo-modal [currentGroup]="group" ></kudo-modal>
-                        <a href="#" class="btn btn-link" 
-                            (click)="onShare(group.groupname)">
-                          Share Room
-                        </a>
-                      </div>
-                    </div>   -->
                   </div>
               </div>
             </div>
