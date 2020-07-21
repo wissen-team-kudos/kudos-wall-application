@@ -1,5 +1,5 @@
 .close{
-    color: red
+    color: white
 }
 
 .form-control.ng-touched.ng-invalid {
@@ -10,3 +10,10 @@
     background-color:white;
     color: dodgerblue;
   }
+
+.modal-header{
+    background-color: #007bff;
+}
+.modal-title{
+    color: white;
+}
