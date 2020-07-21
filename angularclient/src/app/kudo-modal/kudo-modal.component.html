@@ -38,7 +38,7 @@
             <input required type="text" class="form-control" ngModel #content="ngModel" name ="content" id="content" placeholder="Type your kudos here">
         	<div class="alert alert-danger" *ngIf="content.touched && !content.valid ">Kudo cannot be empty</div>
         </div> 
-		<!--  <mandar component/>--> 
+ 
 			<div class="modal-footer">
                 <button type="submit" class="btn btn-primary rounded-pill" [disabled]="!content.valid">Send</button>
             </div>
