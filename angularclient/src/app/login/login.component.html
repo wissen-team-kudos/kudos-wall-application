@@ -1,42 +1,43 @@
-<div class="card w-50 rounded-lg shadow">
-    <h3 class="card-header text-light text-center bg-primary">Login</h3>
-    <br>
-    <div class="card-body">
-        <form #f="ngForm" class = "form-signin" (ngSubmit) = "login(f)">
-            <div *ngIf="invalidLogin" class = "alert alert-danger">Invalid Username or Password</div>
-            <div class="form-group">
-                <label for = "username">Username</label>
-                <input 
+<div class="login-container">
+    <div class="card w-25 rounded-lg shadow">
+        <h3 class="card-header text-light text-center bg-primary">Login</h3>
+        <br>
+        <div class="card-body">
+            <form #f="ngForm" class = "form-signin" (ngSubmit) = "login(f)">
+                <div *ngIf="invalidLogin" class = "alert alert-danger">Invalid Username or Password</div>
+                <div class="form-group">
+                    <label for = "username">Username</label>
+                    <input 
+                        ngModel 
+                        type="text" 
+                        id="username" 
+                        #username="ngModel"
+                        name = "username" 
+                        class="form-control" 
+                        placeholder="Username" 
+                        required>
+                    <div *ngIf="username.touched && !username.valid" class="alert alert-danger">
+                        <div *ngIf="username.errors.required">Username is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
                     ngModel 
-                    type="text" 
-                    id="username" 
-                    #username="ngModel"
-                    name = "username" 
+                    type="password" 
+                    id="password" 
+                    #password = "ngModel" 
+                    name = "password"
                     class="form-control" 
-                    placeholder="Username" 
+                    placeholder="Password" 
                     required>
-                <div *ngIf="username.touched && !username.valid" class="alert alert-danger">
-                    <div *ngIf="username.errors.required">Username is required</div>
+                    <div *ngIf="password.touched && !password.valid" class="alert alert-danger">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input 
-                ngModel 
-                type="password" 
-                id="password" 
-                #password = "ngModel" 
-                name = "password"
-                class="form-control" 
-                placeholder="Password" 
-                required>
-                <div *ngIf="password.touched && !password.valid" class="alert alert-danger">
-                    <div *ngIf="password.errors.required">Password is required</div>
-                </div>
-            </div>
-            <br><br>
-            <button class="btn btn-primary btn-lg rounded-pill px-5" type="submit" [disabled] = "!f.valid">Sign in</button>
-        </form>
+                <br><br>
+                <button class="btn btn-primary btn-lg rounded-pill px-5" type="submit" [disabled] = "!f.valid">Sign in</button>
+            </form>
+        </div>
     </div>
 </div>
-

@@ -1,10 +1,10 @@
-.form-signin {
-    /* padding-top: 25%; */
+.login-container{
+    width:100%;
+    margin-top: 10%;
 }
 
 .card {
-    margin-top:17%;
-    margin-left:23%
+    margin: auto;
 }
 .form-control.ng-touched.ng-invalid {
     border: 2px solid red;
