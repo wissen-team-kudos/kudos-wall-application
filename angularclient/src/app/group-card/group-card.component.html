@@ -25,11 +25,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>Room Participants</p>
-    <div *ngFor="let user of theGroup.users">
-      <ul>
-        <li class="card-text">{{user.username}}</li>
-      </ul>
+    <p class="card-text">Room Participants</p>
+    <div *ngFor="let user of theGroup.users" class="card-text inputGroup">
+        <li>{{user.username}}</li>
     </div>
   </div>
 </ng-template>

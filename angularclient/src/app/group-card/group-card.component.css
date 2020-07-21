@@ -1,0 +1,16 @@
+.inputGroup {
+    display: block;
+    position: relative;
+    /* background-color: lightblue; */
+  }
+
+  li {
+    padding: 12px 30px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: black;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0px;
+  }
