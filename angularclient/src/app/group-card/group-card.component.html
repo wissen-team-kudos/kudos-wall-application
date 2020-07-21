@@ -1,35 +1,30 @@
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{theGroup.groupname}}</h5>
-      <div *ngFor="let user of theGroup.users.slice(0,2)">
-        <p class="card-text">{{user.username}} </p>
-      </div>
-      <a *ngIf="theGroup.users.length > 2" href="#" 
-          (click)="open(content)">
+<div class="card rounded-lg shadow m-3">
+  <h5 class= "card-header text-light bg-primary text-center">
+    <span>{{theGroup.groupname}}</span>
+  </h5>
+  <div class="card-body pt-1 pl-1">
+    <div class="d-flex">
+      <div *ngFor="let user of theGroup.users.slice(0,2)" class="text-muted font-italic ml-2"><span class="fa fa-user-circle"></span> {{user.username}}</div>
+      <div *ngIf="theGroup.users.length > 2" class="text-muted font-italic ml-2"><a  href="#" (click)="open(content)">
         (view all)
-      </a>
-      <br>
-      <kudo-modal [theGroup]="theGroup"></kudo-modal>
-      <a href="#" class="btn btn-link" 
-          (click)="onShare(theGroup.groupname)">
-        Share Room
-      </a>
+      </a></div>
     </div>
+    <div class="d-flex flex-row-reverse mt-5">
+      <kudo-modal [theGroup]="theGroup"></kudo-modal>
+    </div>
+  </div>
 </div>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
+  <div class="modal-header bg-primary text-light">
     <h4 class="modal-title" id="modal-basic-title">{{theGroup.groupname}}</h4>
     <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+      <span class="text-white" aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p>Room Participants</p>
-    <div *ngFor="let user of theGroup.users">
-      <ul>
-        <li class="card-text">{{user.username}}</li>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let user of theGroup.users" class="list-group-item">{{user.username}}</li>
       </ul>
-    </div>
   </div>
 </ng-template>
