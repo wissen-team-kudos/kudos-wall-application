@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.kudo.entity.*;
 import com.demo.kudo.entity.User;
-import com.demo.kudo.models.GroupAuthenticationRequest;
-import com.demo.kudo.service.GroupService;
+import com.demo.kudo.models.RoomAuthenticationRequest;
+import com.demo.kudo.service.RoomService;
 import com.demo.kudo.service.UserService;
 
 @RestController
@@ -29,7 +29,7 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
-	private GroupService groupService;
+	private RoomService roomService;
 	
 	@GetMapping("/users")
 	public List<User> getUsers() {
@@ -73,37 +73,37 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 	
-	@PutMapping("/users/groupid/{userId}/{groupId}")
-	public User updateGrouptoUser(@PathVariable int userId, @PathVariable int groupId) {
+	@PutMapping("/users/roomid/{userId}/{roomId}")
+	public User updateRoomtoUser(@PathVariable int userId, @PathVariable int roomId) {
 				
-		Group group = groupService.getGroup(groupId);
-		if(group == null) {
-			throw new GroupNotFoundException("Group ID not found - " + groupId);
+		Room room = roomService.getRoom(roomId);
+		if(room == null) {
+			throw new RoomNotFoundException("Room ID not found - " + roomId);
 		}
 		
-		User user=userService.saveUserWithGroup(userId,group);
+		User user=userService.saveUserWithRoom(userId,room);
 		
 		return user;
 	}
 	
-	@PutMapping("/users/groupname/{userId}")
-	public ResponseEntity<User> updateGrouptoUser(@PathVariable int userId, @RequestBody GroupAuthenticationRequest request) {
-		Group group;
+	@PutMapping("/users/roomname/{userId}")
+	public ResponseEntity<User> updateRoomtoUser(@PathVariable int userId, @RequestBody RoomAuthenticationRequest request) {
+		Room room;
 		try {
-			group = groupService.getGroup(request.getGroupname());
+			room = roomService.getRoom(request.getRoomname());
 		}
 		catch(EmptyResultDataAccessException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
-		if(!group.getPassword().equals(request.getPassword())) {
+		if(!room.getPassword().equals(request.getPassword())) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
-		for(User user : group.getUsers()) {
+		for(User user : room.getUsers()) {
 			if(user.getId() == userId) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			}
 		}
-		User user = userService.saveUserWithGroup(userId, group);
+		User user = userService.saveUserWithRoom(userId, room);
 		return ResponseEntity.ok(user);
 	}
 	

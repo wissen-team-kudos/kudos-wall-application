@@ -5,31 +5,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice(assignableTypes = {GroupController.class})
-public class GroupRestExceptionHandler {
+@ControllerAdvice(assignableTypes = {RoomController.class})
+public class RoomRestExceptionHandler {
 
 	@ExceptionHandler
-	public ResponseEntity<GroupErrorResponse> handleException(GroupNotFoundException exc) {
+	public ResponseEntity<RoomErrorResponse> handleException(RoomNotFoundException exc) {
 		
-		GroupErrorResponse error = new GroupErrorResponse(
+		RoomErrorResponse error = new RoomErrorResponse(
 											HttpStatus.NOT_FOUND.value(),
 											exc.getMessage(),
 											System.currentTimeMillis()
 											);
 		
-		return new ResponseEntity<GroupErrorResponse>(error, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<RoomErrorResponse>(error, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler
-	public ResponseEntity<GroupErrorResponse> handleException(Exception exc) {
+	public ResponseEntity<RoomErrorResponse> handleException(Exception exc) {
 		
-		GroupErrorResponse error = new GroupErrorResponse(
+		RoomErrorResponse error = new RoomErrorResponse(
 											HttpStatus.BAD_REQUEST.value(),
 											exc.getMessage(),
 											System.currentTimeMillis()
 											);
 		
-		return new ResponseEntity<GroupErrorResponse>(error, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<RoomErrorResponse>(error, HttpStatus.BAD_REQUEST);
 	}
 	
 }

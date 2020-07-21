@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.kudo.dao.UserDAO;
-import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.Room;
 import com.demo.kudo.entity.Kudos;
 import com.demo.kudo.entity.User;
 
@@ -41,9 +41,9 @@ public class UserService implements IUserService {
 
 	//@Override
 	@Transactional
-	public User saveUserWithGroup(int userId,Group group) {
+	public User saveUserWithRoom(int userId,Room room) {
 		
-		 return userDAO.saveUserWithGroup(userId,group);	
+		 return userDAO.saveUserWithRoom(userId,room);	
 	}
 	
 	@Override

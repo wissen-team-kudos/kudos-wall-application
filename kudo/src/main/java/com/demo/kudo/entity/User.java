@@ -38,15 +38,15 @@ public class User {
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "kudo_id")
 			)
-	@JsonIgnoreProperties(value = {"users", "groups"})
+	@JsonIgnoreProperties(value = {"users", "rooms"})
 	private List<Kudos> kudos;
 
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinTable(name="users_groups",
+	@JoinTable(name="users_rooms",
 				joinColumns = @JoinColumn(name="user_id"),
-				inverseJoinColumns = @JoinColumn(name="group_id"))	
+				inverseJoinColumns = @JoinColumn(name="room_id"))	
 	@JsonIgnoreProperties(value = {"users", "kudos"}) // to prevent serialization of data
-	private List<Group> groups;
+	private List<Room> rooms;
 	
 	public User() {
 		
@@ -85,20 +85,20 @@ public class User {
 	}
 
 	
-	public List<Group> getGroups() {
-		return groups;
+	public List<Room> getRooms() {
+		return rooms;
 	}
 
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
 	}
 
-	public void addGroup(Group group) {
-		if(groups==null)
-			groups=new ArrayList<Group>();
+	public void addRoom(Room room) {
+		if(rooms==null)
+			rooms=new ArrayList<Room>();
 		
-		if(!groups.contains(group))
-			groups.add(group);
+		if(!rooms.contains(room))
+			rooms.add(room);
 
 	}
 	

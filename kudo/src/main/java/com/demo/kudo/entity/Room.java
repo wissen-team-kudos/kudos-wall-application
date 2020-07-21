@@ -17,45 +17,45 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="groups_of_user")
-public class Group {
+@Table(name="rooms_of_user")
+public class Room {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	int id;
 	
-	@Column(name="groupname",
+	@Column(name="roomname",
 			unique = true)
-	String groupname;
+	String roomname;
 	
 	@Column(name="password")
 	String password;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinTable(name="users_groups",
-				joinColumns = @JoinColumn(name="group_id"),
+	@JoinTable(name="users_rooms",
+				joinColumns = @JoinColumn(name="room_id"),
 				inverseJoinColumns = @JoinColumn(name="user_id"))	
-	@JsonIgnoreProperties(value = {"groups", "kudos"}) // to prevent serialization of data
+	@JsonIgnoreProperties(value = {"rooms", "kudos"}) // to prevent serialization of data
 	private List<User> users;
 	
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(
-			name="groups_kudos",
-			joinColumns = @JoinColumn(name="group_id"),
+			name="rooms_kudos",
+			joinColumns = @JoinColumn(name="room_id"),
 			inverseJoinColumns = @JoinColumn(name="kudo_id")
 			)	
-	@JsonIgnoreProperties(value = {"kudos", "groups"})
+	@JsonIgnoreProperties(value = {"kudos", "rooms"})
 	private List<Kudos> kudos;
 
-	public Group() {
+	public Room() {
 		
 	}
 
-	public Group(int id, String groupname, String password) {
+	public Room(int id, String roomname, String password) {
 		this.id = id;
-		this.groupname = groupname;
+		this.roomname = roomname;
 		this.password = password;
 	}
 	public List<Kudos> getKudos(){
@@ -74,12 +74,12 @@ public class Group {
 		this.id = id;
 	}
 
-	public String getGroupname() {
-		return groupname;
+	public String getRoomname() {
+		return roomname;
 	}
 
-	public void setGroupname(String groupname) {
-		this.groupname = groupname;
+	public void setRoomname(String roomname) {
+		this.roomname = roomname;
 	}
 
 	public String getPassword() {
@@ -114,7 +114,7 @@ public class Group {
 	
 	@Override
 	public String toString() {
-		return "Group [id=" + id + ", groupname=" + groupname + ", password=" + password + "]";
+		return "room [id=" + id + ", roomname=" + roomname + ", password=" + password + "]";
 	}
 	
 }

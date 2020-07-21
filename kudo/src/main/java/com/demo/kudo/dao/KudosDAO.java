@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.Room;
 import com.demo.kudo.entity.Kudos;
 import com.demo.kudo.entity.User;
 
@@ -47,10 +47,10 @@ public class KudosDAO implements IKudosDAO {
 				kudosToInsert.addUser(viewer);
 			}
 		}
-		if(theKudos.getGroups()!=null) {
-			for(Group group : theKudos.getGroups()) {
-				Group persistentGroup = currentSession.get(Group.class, group.getId());
-				kudosToInsert.addGroup(persistentGroup);
+		if(theKudos.getRooms()!=null) {
+			for(Room room : theKudos.getRooms()) {
+				Room persistentRoom = currentSession.get(Room.class, room.getId());
+				kudosToInsert.addRoom(persistentRoom);
 			}
 		}
 		
