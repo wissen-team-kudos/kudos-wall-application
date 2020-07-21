@@ -81,16 +81,16 @@ export class UserService {
 
   /*
     ReturnType : HttpResponse
-    if groupname and password are valid combination: status=200
-    else if groupname does not exist : status=404
+    if roomname and password are valid combination: status=200
+    else if roomname does not exist : status=404
     else if password is invalid: status=401
-    else if user already present in group: status=400 
+    else if user already present in room: status=400 
   */
-  addGroupToUser(userid: number, groupname: string, groupPassword: string) {
-    return this.http.put(this.url + "/groupname/" + userid,
+  addRoomToUser(userid: number, roomname: string, roomPassword: string) {
+    return this.http.put(this.url + "/roomname/" + userid,
       {
-        groupname: groupname,
-        password: groupPassword
+        roomname: roomname,
+        password: roomPassword
       },
       {
         observe : 'response',
@@ -103,13 +103,13 @@ export class UserService {
     // },
     // (error : HttpErrorResponse)=>{
     //   if(error.status==404){
-    //     console.log("Not found: Invalid groupname");
+    //     console.log("Not found: Invalid roomname");
     //   }
     //   else if(error.status==401){
     //     console.log("Not auhorized: invalid password");
     //   }
     //   else if(error.status==400){
-    //     console.log("Bad request. user already present in group");
+    //     console.log("Bad request. user already present in room");
     //   }
     // });
   }

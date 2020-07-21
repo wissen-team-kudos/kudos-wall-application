@@ -11,9 +11,9 @@ export interface User{
         password : string
       }
     }[] | null,
-    groups? : {
+    rooms? : {
       id : number,
-      groupname : string,
+      roomname : string,
       password: string
     }[] | null
   }

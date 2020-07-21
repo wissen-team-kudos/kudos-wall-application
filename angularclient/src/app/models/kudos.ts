@@ -12,9 +12,9 @@ export interface Kudos{
             password: string
             }[],
 
-	groups:{ 
+	rooms:{ 
             id:number,
-            groupname: string,
+            roomname: string,
             password: string
     		}[]
     }

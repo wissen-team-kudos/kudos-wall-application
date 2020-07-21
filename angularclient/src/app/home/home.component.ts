@@ -1,13 +1,11 @@
 import { UserService } from './../services/user.service';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { SampleGroupService } from '../dummy-services/sample-group.service';
-import { SampleKudoService } from '../dummy-services/sample-kudo.service';
 import { KudosService } from '../services/kudos.service';
 import { KudoCardComponent } from '../kudo-card/kudo-card.component';
 import { Kudos } from '../models/kudos';
-import { GroupService } from '../services/group.service';
-import { Group } from '../models/group';
+import { RoomService } from '../services/room.service';
+import { Room } from '../models/room';
 import { User } from '../models/user';
 import { Observable, forkJoin, EMPTY } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -25,26 +23,21 @@ export class HomeComponent implements OnInit {
   clicked=false;
 
   kudos:Kudos[]=[];
-  userGroups : Group[]=[];
+  userRooms : Room[]=[];
  
 
-  constructor(private groupService: GroupService,
+  constructor(private roomService: RoomService,
     private authService: AuthenticationService,
     private sharedService: SharedService,
-    private sampleGroupService: SampleGroupService,
-    private sampleKudoService: SampleKudoService,
     private userService:UserService,
     private kudosService:KudosService,
-    private sampleKudosService:SampleKudoService
 				) {
-    this.kudos= this.sampleKudosService.getKudos();
-
   }
 
 
   ngOnInit(): void { 
     this.showKudos();
-    this.showGroups();
+    this.showRooms();
    }
   
   showKudos(){
@@ -75,57 +68,57 @@ export class HomeComponent implements OnInit {
 	});
   }
 
-  showGroups(){
+  showRooms(){
     this.clicked=true;
 
-//////////////////// TESTING OF GROUP APIS /////////////////////////
+//////////////////// TESTING OF ROOM APIS /////////////////////////
 
-    // this.groupService.getGroup(1);
-    // this.groupService.getAllGroups();
+    // this.roomService.getRoom(1);
+    // this.roomService.getAllRooms();
 
-    // let group : Group={
-    //   groupname : 'group10',
+    // let room : Room={
+    //   roomname : 'room10',
     //   password : 'pass10'
     // };
-    // this.groupService.addGroup(group);
+    // this.roomService.addRoom(room);
 
-    // let group : Group={
+    // let room : Room={
     //   id: 3,
-    //   groupname : 'group15',
+    //   roomname : 'room15',
     //   password : 'pass15'
     // };
-    // this.groupService.updateGroup(group);
+    // this.roomService.updateRoom(room);
 
-    // this.groupService.deleteGroup(13);
-    // this.groupService.deleteGroup(14);
+    // this.roomService.deleteRoom(13);
+    // this.roomService.deleteRoom(14);
 
 //////////////////////////////////////////////////////////////
 
     let userId : number = this.authService.CurrentUserId();
 
-    this.userGroups=[];
+    this.userRooms=[];
 
     let sub = this.userService.getUser(userId)
     .subscribe(response => {
       let user : User= <User>response.body;
-      let groupList : Group[] = <Group[]>user.groups;
+      let roomList : Room[] = <Room[]>user.rooms;
 
-      groupList.forEach(group => {
-        this.groupService.getGroup(group.id)
+      roomList.forEach(room => {
+        this.roomService.getRoom(room.id)
         .subscribe(response => {
-          this.userGroups.push(<Group>response.body)
+          this.userRooms.push(<Room>response.body)
         });
       });
 
-      this.sharedService.groupAdded
-      .subscribe(newGroup => {
-        if(!this.userGroups.includes(newGroup)){
-          this.userGroups.push(newGroup);
-          console.log(this.userGroups);
+      this.sharedService.roomAdded
+      .subscribe(newRoom => {
+        if(!this.userRooms.includes(newRoom)){
+          this.userRooms.push(newRoom);
+          console.log(this.userRooms);
         }
       });
       
-      console.log(this.userGroups);
+      console.log(this.userRooms);
     });
   }
   

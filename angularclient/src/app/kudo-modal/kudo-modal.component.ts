@@ -5,9 +5,8 @@ import { KudosService } from '../services/kudos.service';
 import { UserService } from '../services/user.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { Kudos} from '../models/kudos';
-import { Group} from '../models/group';
+import { Room} from '../models/room';
 import { User} from '../models/user';
-import { SampleUserService } from '../dummy-services/sample-user.service';
 
 @Component({
   selector: 'kudo-modal',
@@ -18,7 +17,7 @@ import { SampleUserService } from '../dummy-services/sample-user.service';
 export class KudoModalComponent implements OnInit {
   closeResult = '';
   theKudo:Kudos;
-  @Input() theGroup : Group;
+  @Input() theRoom : Room;
   userlist : {
     user : {id: number, username: string, password: string},
     checked: boolean
@@ -32,7 +31,6 @@ export class KudoModalComponent implements OnInit {
 	constructor(private modalService: NgbModal, 
 				private kudoService: KudosService,
 				private authService: AuthenticationService,
-				private sampleUserService: SampleUserService,
 				private userService: UserService) { }
 
   ngOnInit(): void {
@@ -67,7 +65,7 @@ export class KudoModalComponent implements OnInit {
 
 
   onSubmit(form: NgForm){
-	let theKudo:Kudos={content:"", users:[], groups:[], author:null};
+	let theKudo:Kudos={content:"", users:[], rooms:[], author:null};
 
 	theKudo.content=form.value.content;
 	
@@ -86,12 +84,12 @@ export class KudoModalComponent implements OnInit {
     theKudo.users=selectedUsersList;
     console.log(theKudo)
 
-		theKudo.groups=[];
-		theKudo.groups.push(
+		theKudo.rooms=[];
+		theKudo.rooms.push(
     	    {
-        	  id: this.theGroup.id,
-	          groupname: this.theGroup.groupname,
-			  password: this.theGroup.password
+        	  id: this.theRoom.id,
+	          roomname: this.theRoom.roomname,
+			  password: this.theRoom.password
         });
         
     console.log("the kudo to be added ");
@@ -128,9 +126,9 @@ export class KudoModalComponent implements OnInit {
 
   cleanUserlist(){
     this.userlist = new Array();
-    for (let index = 0; index < this.theGroup.users.length; index++) {
-      if(this.theGroup.users[index].username != this.authService.CurrentUsername())
-        this.userlist.push({user : this.theGroup.users[index], checked : false});
+    for (let index = 0; index < this.theRoom.users.length; index++) {
+      if(this.theRoom.users[index].username != this.authService.CurrentUsername())
+        this.userlist.push({user : this.theRoom.users[index], checked : false});
     }
     this.isUserListEmpty=false;
   }

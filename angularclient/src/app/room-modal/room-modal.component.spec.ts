@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupCardComponent } from './group-card.component';
+import { RoomModalComponent } from './room-modal.component';
 
-describe('GroupCardComponent', () => {
-  let component: GroupCardComponent;
-  let fixture: ComponentFixture<GroupCardComponent>;
+describe('RoomModalComponent', () => {
+  let component: RoomModalComponent;
+  let fixture: ComponentFixture<RoomModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupCardComponent ]
+      declarations: [ RoomModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupCardComponent);
+    fixture = TestBed.createComponent(RoomModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

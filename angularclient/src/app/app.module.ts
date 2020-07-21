@@ -11,29 +11,27 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { GroupModalComponent } from './group-modal/group-modal.component';
+import { RoomModalComponent } from './room-modal/room-modal.component';
 import { FormsModule } from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { KudoModalComponent } from './kudo-modal/kudo-modal.component';
 import { KudoCardComponent } from './kudo-card/kudo-card.component';
-import { SampleGroupService } from './dummy-services/sample-group.service';
-import { SampleKudoService } from './dummy-services/sample-kudo.service';
-import { GroupService } from './services/group.service';
+import { RoomService } from './services/room.service';
 import { BasicAuthHttpInterceptorService } from './services/basic-auth-http-interceptor.service';
 import { UserService } from './services/user.service';
 import { SharedService } from './shared/shared.service';
-import { GroupCardComponent } from './group-card/group-card.component';
+import { RoomCardComponent } from './room-card/room-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     BsNavbarComponent,
-    GroupModalComponent,
+    RoomModalComponent,
     LoginComponent,
     KudoCardComponent,
     KudoModalComponent,
-    GroupCardComponent
+    RoomCardComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +45,7 @@ import { GroupCardComponent } from './group-card/group-card.component';
     AuthenticationService,
     AuthGuard,
     LoginGuard,
-    SampleGroupService, 
-    SampleKudoService,
-    GroupService,
+    RoomService,
     UserService,
     KudosService,
     SharedService,

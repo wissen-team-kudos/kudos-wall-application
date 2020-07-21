@@ -1,17 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Group } from '../models/group';
+import { Room } from '../models/room';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'group-card',
-  templateUrl: './group-card.component.html',
-  styleUrls: ['./group-card.component.css']
+  selector: 'room-card',
+  templateUrl: './room-card.component.html',
+  styleUrls: ['./room-card.component.css']
 })
-export class GroupCardComponent implements OnInit {
+export class RoomCardComponent implements OnInit {
 
   closeResult = '';
   
-  @Input() theGroup : Group;
+  @Input() theRoom : Room;
 
   constructor(private modalService: NgbModal) { }
 
@@ -36,8 +36,8 @@ export class GroupCardComponent implements OnInit {
     }
   }
 
-  onShare(groupname: String){
-    alert("Sharing "+groupname);
+  onShare(roomname: String){
+    alert("Sharing "+roomname);
   }
 
 }

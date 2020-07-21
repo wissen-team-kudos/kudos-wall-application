@@ -1,7 +1,7 @@
 <div class="container">
     <div class="btn-group">
         <button class="btn btn-lg btn-outline-primary mx-3 rounded" (click)="open(content)">Join Room</button>
-        <button class="btn btn-lg btn-outline-primary mx-3 rounded" (click)="open(createGroup)">Create Room</button>
+        <button class="btn btn-lg btn-outline-primary mx-3 rounded" (click)="open(createRoom)">Create Room</button>
     </div>
 </div>
 
@@ -16,9 +16,9 @@
         <p>Enter room details</p>
         <form #f="ngForm" (ngSubmit)="onSubmit(f,0)" >
         <div class="form-group">
-            <div *ngIf="formError.groupnameNotFound" class = "alert alert-danger" >Group name does not exist</div>
+            <div *ngIf="formError.roomnameNotFound" class = "alert alert-danger" >Room name does not exist</div>
             <div *ngIf="formError.passwordError" class = "alert alert-danger" >Wrong Password</div>
-            <div *ngIf="formError.userAlreadyPresent" class = "alert alert-danger" >User already present in the group</div>
+            <div *ngIf="formError.userAlreadyPresent" class = "alert alert-danger" >User already present in the room</div>
             <!-- <label for="recipient-name" class="col-form-label">Room Name:</label> -->
             <input type="text" ngbAutoFocus class="form-control" placeholder="Room Name" name="name" ngModel #name="ngModel" id="name" required>
             <div *ngIf="name.touched && !name.valid" class="alert alert-danger">
@@ -40,7 +40,7 @@
     </div>
 </ng-template>
 
-<ng-template #createGroup let-modal>
+<ng-template #createRoom let-modal>
     <div class="modal-header bg-primary text-light">
       <h4 class="modal-title" id="modal-basic-title">Create Room</h4>
       <br>
@@ -51,7 +51,7 @@
     <div class="modal-body">
         <p>Enter room details</p>
         <form #f="ngForm" (ngSubmit)="onSubmit(f,1)" >
-            <div *ngIf="formError.groupnameExists" class = "alert alert-danger">Group name already exists</div>
+            <div *ngIf="formError.roomnameExists" class = "alert alert-danger">Room name already exists</div>
             <div class="form-group">
                 <!-- <label for="recipient-name" class="col-form-label">Room Name:</label> -->
                 <input type="text" ngbAutoFocus class="form-control" placeholder="Room Name" name="name" ngModel #name="ngModel" id="name" required>

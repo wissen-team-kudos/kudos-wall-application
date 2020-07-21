@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Group } from '../models/group';
+import { Room } from '../models/room';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupService {
+export class RoomService {
 
   private userServiceApiUrl = 'http://localhost:8080/api/users/';
-  private url= 'http://localhost:8080/api/groups';
+  private url= 'http://localhost:8080/api/rooms';
 
 
   constructor(private http : HttpClient) { }
@@ -25,7 +25,7 @@ export class GroupService {
     );
   }
 
-  getGroup(id: number) {
+  getRoom(id: number) {
    
     return this.http.get(this.url + "/" + id,
       {
@@ -35,7 +35,7 @@ export class GroupService {
     );
   }
 
-  getAllGroups(){
+  getAllRooms(){
    
     this.http.get(this.url,
       {
@@ -43,14 +43,14 @@ export class GroupService {
         responseType: 'json'
       }
     ).subscribe(response =>{
-      let group : Group = <Group>response.body;
-      console.log(group);
+      let room : Room = <Room>response.body;
+      console.log(room);
     });
   }
 
-  addGroup(group : Group){
+  addRoom(room : Room){
 
-    return this.http.post(this.url,group,
+    return this.http.post(this.url,room,
       {
         observe : 'response',
         responseType: 'json'
@@ -58,20 +58,20 @@ export class GroupService {
     );
   }
   
-  updateGroup(group : Group){
+  updateRoom(room : Room){
     
-    this.http.put(this.url,group,
+    this.http.put(this.url,room,
       {
         observe : 'response',
         responseType: 'json'
       }
     ).subscribe(response =>{
-      let group : Group = <Group>response.body;
-      console.log(group);
+      let room : Room = <Room>response.body;
+      console.log(room);
     });
   }
 
-  deleteGroup(id: number){
+  deleteRoom(id: number){
    
     this.http.delete(this.url + "/" + id,
       {
@@ -83,29 +83,29 @@ export class GroupService {
     });
   }
 
-  addUserToGroup(userid: number, groupname: string, groupPassword: string) {
-    this.http.put(this.url + "/groupname/" + userid,
+  addUserToRoom(userid: number, roomname: string, roomPassword: string) {
+    this.http.put(this.url + "/roomname/" + userid,
       {
-        groupname: groupname,
-        password: groupPassword
+        roomname: roomname,
+        password: roomPassword
       },
       {
         observe : 'response',
         responseType : 'json'
       }
-    ).subscribe((response :HttpResponse<Group>) => {
-      let group : Group = <Group> response.body;
-      console.log(group);      
+    ).subscribe((response :HttpResponse<Room>) => {
+      let room : Room = <Room> response.body;
+      console.log(room);      
     },
     (error : HttpErrorResponse)=>{
       if(error.status==404){
-        console.log("Not found: Invalid groupname");
+        console.log("Not found: Invalid roomname");
       }
       else if(error.status==401){
         console.log("Not auhorized: invalid password");
       }
       else if(error.status==400){
-        console.log("Bad request. user already present in group");
+        console.log("Bad request. user already present in room");
       }
     });
   }

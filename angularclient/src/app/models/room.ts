@@ -1,6 +1,6 @@
-export interface Group {
+export interface Room {
     id? : number,
-    groupname : string,
+    roomname : string,
     password : string,
     kudos? : {
       id : number,

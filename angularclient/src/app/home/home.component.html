@@ -1,6 +1,6 @@
 <nav ngbNav #nav="ngbNav" class="nav-tabs nav-fill nav-pills m-4">
   <ng-container ngbNavItem>
-    <a ngbNavLink class="ng-nav-link mx-5 mb-4 border-0"><h5>Wall</h5></a>
+    <a ngbNavLink class="ng-nav-link mx-5 mb-4 border-0" (click)="showKudos()"><h5>Wall</h5></a>
     <ng-template ngbNavContent>
         
         <div class="d-flex flex-row flex-wrap justify-content-center">
@@ -12,15 +12,15 @@
     </ng-template>
   </ng-container>
   <ng-container ngbNavItem>
-    <a ngbNavLink class="ng-nav-link mx-5 mb-4 border-0"><h5>Rooms</h5></a>
+    <a ngbNavLink class="ng-nav-link mx-5 mb-4 border-0" (click)="showRooms()"><h5>Rooms</h5></a>
     <ng-template ngbNavContent>
       
       <div class="d-flex flex-row-reverse">
-        <group-modal></group-modal>
+        <room-modal></room-modal>
       </div>
       <div class="d-flex flex-row flex-wrap justify-content-center">
-        <div *ngFor="let group of userGroups">
-          <group-card [theGroup]="group"></group-card>
+        <div *ngFor="let room of userRooms">
+          <room-card [theRoom]="room"></room-card>
         </div>
       </div>
       

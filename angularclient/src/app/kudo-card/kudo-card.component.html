@@ -8,7 +8,7 @@
 	  <div class="pl-3 mt-1 pb-4" style="font-size: large;">
 		<span class="left-quote" style="font-size: 2rem;">&#8220;</span> {{theKudo.content}} <span class="right-quote" style="font-size: 2rem;">&#8221;</span>
 	  </div>
-	  <div *ngFor="let group of theKudo.groups" class="text-muted font-italic align-text-bottom" >&mdash; posted on {{group.groupname}} </div>
+	  <div *ngFor="let room of theKudo.rooms" class="text-muted font-italic align-text-bottom" >&mdash; posted on {{room.roomname}} </div>
 	</div>
 	<div class="card-footer text-muted text-right font-italic">
 	  <span class="mr-3">From</span><span class="fa fa-user-circle"></span><span class="ml-1">{{theKudo.author.username}}</span>

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Group } from '../models/group';
+import { Room } from '../models/room';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
-  groupAdded  = new Subject<Group>();
+  roomAdded  = new Subject<Room>();
 }
