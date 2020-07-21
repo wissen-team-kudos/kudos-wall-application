@@ -2,12 +2,13 @@
 
 <ng-template #list_of_users let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Room participants</h4>
+      <h4 class="modal-title" id="modal-basic-title">Select participants</h4>
       <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
+        <p>Room participants</p>
         <form #f="ngForm" (ngSubmit)="testIfEmpty()" >
             <div *ngIf="isUserListEmpty" class = "alert alert-danger">At least one user should be selected</div>
                 <div class="inputGroup" *ngFor="let iteration of userlist">
