@@ -1,3 +1,19 @@
 .close{
-    color: red
+    color: white
+}
+
+.form-control.ng-touched.ng-invalid {
+    border: 2px solid red;
+}
+
+.btn-lg.btn-primary:hover {
+    background-color:white;
+    color: dodgerblue;
+  }
+
+.modal-header{
+    background-color: #007bff;
+}
+.modal-title{
+    color: white;
 }
