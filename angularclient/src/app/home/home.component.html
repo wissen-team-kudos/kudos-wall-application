@@ -2,7 +2,6 @@
     <ng-container ngbNavItem >
         <a ngbNavLink (click)="showKudos()">Wall</a>
         <ng-template ngbNavContent>
-            <p class="a">Kudos list</p>
 <!--            <div class="d-flex flex-sm-row bd-highlight mb-3"><div class="p-2 bd-highlight"*ngFor="let kudo of kudos" >
 -->             <div class="wrapper"><div *ngFor="let kudo of kudos"> 
 				<kudo-card [theKudo]="kudo"></kudo-card>
