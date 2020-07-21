@@ -12,10 +12,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-DROP TABLE IF EXISTS `groups_of_user`;
-CREATE TABLE `groups_of_user` (
+DROP TABLE IF EXISTS `rooms_of_user`;
+CREATE TABLE `rooms_of_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupname` varchar(50) NOT NULL unique,
+  `roomname` varchar(50) NOT NULL unique,
   `password` varchar(68) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -29,13 +29,13 @@ CREATE TABLE `kudos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `users_groups`;
-CREATE TABLE `users_groups` (
+DROP TABLE IF EXISTS `users_rooms`;
+CREATE TABLE `users_rooms` (
   `user_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  primary key (`user_id`, `group_id`),
+  `room_id` int(11) NOT NULL,
+  primary key (`user_id`, `room_id`),
   foreign key (`user_id`) references users (`id`) on delete cascade on update cascade,
-  foreign key (`group_id`) references `groups_of_user` (`id`) on delete cascade on update cascade
+  foreign key (`room_id`) references `rooms_of_user` (`id`) on delete cascade on update cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `users_kudos`;
@@ -47,11 +47,11 @@ CREATE TABLE `users_kudos` (
   foreign key (`kudo_id`) references kudos (`id`) on delete cascade on update cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `groups_kudos`;
-CREATE TABLE `groups_kudos` (
-  `group_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `rooms_kudos`;
+CREATE TABLE `rooms_kudos` (
+  `room_id` int(11) NOT NULL,
   `kudo_id` int(11) NOT NULL,
-  primary key (`group_id`, `kudo_id`),
-  foreign key (`group_id`) references `groups_of_user` (`id`) on delete cascade on update cascade,
+  primary key (`room_id`, `kudo_id`),
+  foreign key (`room_id`) references `rooms_of_user` (`id`) on delete cascade on update cascade,
   foreign key (`kudo_id`) references kudos (`id`) on delete cascade on update cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

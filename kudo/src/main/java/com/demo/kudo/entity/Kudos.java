@@ -31,7 +31,7 @@ public class Kudos {
 	
 	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name="user_id")
-	@JsonIgnoreProperties(value = {"kudos", "groups"})
+	@JsonIgnoreProperties(value = {"kudos", "rooms"})
 	private User author;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -40,28 +40,28 @@ public class Kudos {
 			joinColumns = @JoinColumn(name = "kudo_id"),
 			inverseJoinColumns = @JoinColumn(name = "user_id")
 			)
-	@JsonIgnoreProperties(value = {"kudos", "groups"})
+	@JsonIgnoreProperties(value = {"kudos", "rooms"})
 	private List<User> users;//users who can view this kudo
 	
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(
-			name="groups_kudos",
+			name="rooms_kudos",
 			joinColumns = @JoinColumn(name="kudo_id"),
-			inverseJoinColumns = @JoinColumn(name="group_id")
+			inverseJoinColumns = @JoinColumn(name="room_id")
 			)	
 	@JsonIgnoreProperties(value = {"kudos", "users"})
-	private List<Group> groups;
+	private List<Room> rooms;
 	
 	public Kudos() {
 		
 	}
-	public List<Group> getGroups(){
-		return groups;
+	public List<Room> getRooms(){
+		return rooms;
 	}    
 
-	public void setGroups(List<Group> groups){
-		this.groups=groups;
+	public void setRooms(List<Room> rooms){
+		this.rooms=rooms;
 	}
 	public Kudos(String content) {
 		this.content = content;
@@ -106,11 +106,11 @@ public class Kudos {
 		users.add(user);
 	}
 	
-	public void addGroup(Group grp) {
-		if(groups == null) {
-			groups= new ArrayList<>();
+	public void addRoom(Room grp) {
+		if(rooms == null) {
+			rooms= new ArrayList<>();
 		}
-		groups.add(grp);
+		rooms.add(grp);
 	}
 	
 

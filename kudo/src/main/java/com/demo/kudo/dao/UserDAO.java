@@ -13,7 +13,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.demo.kudo.entity.Group;
+import com.demo.kudo.entity.Room;
 import com.demo.kudo.entity.Kudos;
 import com.demo.kudo.entity.User;
 
@@ -61,10 +61,10 @@ public class UserDAO implements IUserDAO {
 				userToInsert.addKudo(viewer);
 			}
 		}
-		if(theUser.getGroups()!=null) {
-			for(Group group : theUser.getGroups()) {
-				Group persistentGroup = currentSession.get(Group.class, group.getId());
-				userToInsert.addGroup(persistentGroup);
+		if(theUser.getRooms()!=null) {
+			for(Room room : theUser.getRooms()) {
+				Room persistentRoom = currentSession.get(Room.class, room.getId());
+				userToInsert.addRoom(persistentRoom);
 			}
 		}
 		
@@ -76,12 +76,12 @@ public class UserDAO implements IUserDAO {
 		return userToInsert;
 	}
 
-	public User saveUserWithGroup(int theId,Group group) {
+	public User saveUserWithRoom(int theId,Room room) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		User theUser = currentSession.get(User.class, theId);
-		theUser.addGroup(group);
+		theUser.addRoom(room);
 
 		currentSession.saveOrUpdate(theUser);	
 		
@@ -113,15 +113,15 @@ public class UserDAO implements IUserDAO {
 		User theUser = currentSession.get(User.class,theID);
 			
 		Set<Kudos> kudos = new HashSet<Kudos>();
-		List<Group> groups = theUser.getGroups();
-		List<User> usersInGroup= new ArrayList<User>();
+		List<Room> rooms = theUser.getRooms();
+		List<User> usersInRoom= new ArrayList<User>();
 		List<Kudos> kudosOfUser= new ArrayList<Kudos>();
 		
-		for(Group group:groups) {
-			kudos.addAll((group.getKudos()).stream().collect(Collectors.toSet()));
-			usersInGroup = group.getUsers();
+		for(Room room:rooms) {
+			kudos.addAll((room.getKudos()).stream().collect(Collectors.toSet()));
+			usersInRoom = room.getUsers();
 			
-			for(User user: usersInGroup) {
+			for(User user: usersInRoom) {
 				kudosOfUser = user.getKudos();				
 				kudos.addAll(kudosOfUser.stream().collect(Collectors.toSet()));
 			}

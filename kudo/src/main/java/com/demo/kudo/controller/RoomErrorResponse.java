@@ -1,16 +1,16 @@
 package com.demo.kudo.controller;
 
-public class GroupErrorResponse {
+public class RoomErrorResponse {
 
 	private int status;
 	private String message;
 	private long timeStamp;
 	
-	public GroupErrorResponse() {
+	public RoomErrorResponse() {
 		
 	}
 
-	public GroupErrorResponse(int status, String message, long timeStamp) {
+	public RoomErrorResponse(int status, String message, long timeStamp) {
 		super();
 		this.status = status;
 		this.message = message;
