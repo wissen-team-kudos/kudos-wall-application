@@ -2,7 +2,6 @@
     display: block;
     margin: 10px 0;
     position: relative;
-    background-color: lightblue;
   }
 
   .inputGroup label {
@@ -17,6 +16,7 @@
     -webkit-transition: color 200ms ease-in;
     transition: color 200ms ease-in;
     overflow: hidden;
+    font-size: 1.3rem;
   }
   .inputGroup label:before {
     width: 10px;
