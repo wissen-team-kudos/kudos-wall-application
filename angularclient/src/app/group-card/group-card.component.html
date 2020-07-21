@@ -27,7 +27,9 @@
   <div class="modal-body">
       <h5 class="" id="modal-basic-title">Room participants</h5>
       <ul class="list-group list-group-flush">
-        <li *ngFor="let user of theGroup.users" class="list-group-item">{{user.username}}</li>
+        <li *ngFor="let user of theGroup.users" class="list-group-item"><span class="fa fa-user-circle" style="color:gray"></span>
+          <span class="px-2">{{user.username}}</span>
+        </li>
       </ul>
   </div>
 </ng-template>
