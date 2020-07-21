@@ -10,12 +10,10 @@
     <div class="modal-body">
         <form #f="ngForm" (ngSubmit)="testIfEmpty()" >
             <div *ngIf="isUserListEmpty" class = "alert alert-danger">At least one user should be selected</div>
-            <div class="inputGroup">
-                <div  *ngFor="let iteration of userlist">
+                <div class="inputGroup" *ngFor="let iteration of userlist">
                     <input [(ngModel)] = "iteration.checked"  type="checkbox" id="{{iteration.user.username}}" value="{{iteration.user.username}}" name="{{iteration.user.username}}">
                     <label for="{{iteration.user.username}}">{{iteration.user.username}}</label>
                 </div>
-            </div>
             <div class="modal-footer">
                 <!-- <button type="button"  class="btn btn-primary" (click)="modal.close('Save click')">Save</button> -->
                 <button type="submit" class="btn btn-primary rounded-pill">Next &raquo;</button>
