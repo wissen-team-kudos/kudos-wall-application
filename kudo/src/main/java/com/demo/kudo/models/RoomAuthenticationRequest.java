@@ -30,6 +30,11 @@ public class RoomAuthenticationRequest implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "RoomAuthenticationRequest [roomname=" + roomname + ", password=" + password + "]";
+	}
 	
 	
 }

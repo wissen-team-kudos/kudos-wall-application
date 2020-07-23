@@ -90,6 +90,7 @@ public class UserController {
 	public ResponseEntity<User> updateRoomtoUser(@PathVariable int userId, @RequestBody RoomAuthenticationRequest request) {
 		Room room;
 		try {
+			System.out.println(request);
 			room = roomService.getRoom(request.getRoomname());
 		}
 		catch(EmptyResultDataAccessException e) {
@@ -104,6 +105,8 @@ public class UserController {
 			}
 		}
 		User user = userService.saveUserWithRoom(userId, room);
+		System.out.println(user);
+		System.out.println(ResponseEntity.ok(user));
 		return ResponseEntity.ok(user);
 	}
 	

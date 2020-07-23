@@ -21,6 +21,18 @@ public class UserRestExceptionHandler {
 	}
 	
 	@ExceptionHandler
+	public ResponseEntity<RoomErrorResponse> handleException(RoomNotFoundException exc) {
+		
+		RoomErrorResponse error = new RoomErrorResponse(
+											HttpStatus.NOT_FOUND.value(),
+											exc.getMessage(),
+											System.currentTimeMillis()
+											);
+		
+		return new ResponseEntity<RoomErrorResponse>(error, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler
 	public ResponseEntity<UserErrorResponse> handleException(Exception exc) {
 		
 		UserErrorResponse error = new UserErrorResponse(

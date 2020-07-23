@@ -56,6 +56,13 @@ public class Kudos {
 	public Kudos() {
 		
 	}
+			
+	public Kudos(int id, String content, User author) {
+		this.id = id;
+		this.content = content;
+		this.author = author;
+	}
+
 	public List<Room> getRooms(){
 		return rooms;
 	}    
