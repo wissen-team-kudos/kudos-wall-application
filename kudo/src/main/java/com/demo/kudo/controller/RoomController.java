@@ -48,7 +48,7 @@ public class RoomController {
 	@PostMapping("/rooms")
 	public ResponseEntity<Room> addRoom(@RequestBody Room room) {
 		try {
-			Room roomToInsert = roomService.getRoom(room.getRoomname());
+			roomService.getRoom(room.getRoomname());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		} catch(EmptyResultDataAccessException e) {
 			room.setId(0);

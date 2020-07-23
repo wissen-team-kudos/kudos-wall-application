@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class RoomAuthenticationRequest implements Serializable {
 	
+    private static final long serialVersionUID = 1234567L;
+
 	private String roomname;
 	private String password;
 		
