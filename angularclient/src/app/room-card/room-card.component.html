@@ -58,7 +58,7 @@
       Please confirm if you want to leave the <span class="font-weight-bold" style="font-size: 1.25rem;">{{theRoom.roomname}}</span>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-secondary" data-dismiss="modal">No</button>
+    <button class="btn btn-secondary" data-dismiss="modal" (click)="modal.dismiss('Cross click')">No</button>
     <button class="btn btn-danger" (click)="leaveRoom();modal.dismiss('Cross click')" data-dismiss="modal">Confirm</button>
   </div>
 </ng-template>
