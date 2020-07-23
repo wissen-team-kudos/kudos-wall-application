@@ -123,7 +123,7 @@ class KudoControllerTest {
 		mvc.perform(
 				get("http://localhost:8080/api/kudos/{id}", id)
 				.accept(MediaType.APPLICATION_JSON))
-		//.andDo(print())
+		.andDo(print())
 		.andExpect(status().isNotFound());
 	}
 	
@@ -153,7 +153,7 @@ class KudoControllerTest {
 	@Test
 	public void shouldThrowExceptionOnCreateNewKudo() throws Exception{
 		
-		
+	//	User user= new User(null, "user1" ,"pass1");
 		Kudos kudo =  new Kudos(10, "kudo1", null);
 		
 		given(kudoService.saveKudos(any(Kudos.class))).willReturn(null);
@@ -163,8 +163,8 @@ class KudoControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(kudo)))
-				//.andDo(print())
-				.andExpect(status().isNotFound());
+				.andDo(print())
+				.andExpect(status().isBadRequest());
 	}
 	
 
