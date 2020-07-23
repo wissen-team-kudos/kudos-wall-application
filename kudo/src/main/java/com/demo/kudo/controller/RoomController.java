@@ -39,7 +39,7 @@ public class RoomController {
 		Room room = roomService.getRoom(roomId);
 		
 		if(room == null) {
-			throw new UserNotFoundException("Room ID not found - " + roomId);
+			throw new RoomNotFoundException("Room ID not found - " + roomId);
 		}
 		
 		return room;
@@ -70,7 +70,7 @@ public class RoomController {
 		
 		Room room = roomService.getRoom(roomId);
 		if(room == null) {
-			throw new UserNotFoundException("Room ID not found - " + roomId);
+			throw new RoomNotFoundException("Room ID not found - " + roomId);
 		}
 		
 		roomService.deleteRoom(roomId);
