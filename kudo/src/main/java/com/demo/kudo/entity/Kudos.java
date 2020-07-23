@@ -70,9 +70,7 @@ public class Kudos {
 	public void setRooms(List<Room> rooms){
 		this.rooms=rooms;
 	}
-	public Kudos(String content) {
-		this.content = content;
-	}
+
 
 	public int getId() {
 		return id;
