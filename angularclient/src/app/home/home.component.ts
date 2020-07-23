@@ -42,23 +42,6 @@ export class HomeComponent implements OnInit {
   
   showKudos(){
     this.clicked=true;
-    /*Author: Mandar --- (For testing User service)
-    this.userService.getUser(1);
-    this.userService.getAllUsers();
-    let user : User = {
-      username : 'user4',
-      password : 'pass4'
-    };
-    this.userService.addUser(user);
-    let userToUpdate : User = {
-      id : 6,
-      username : 'user4',
-      password : 'pass5'
-    }
-    this.userService.updateUser(userToUpdate);
-    this.userService.deleteUser(6);
-    */
-
     let userId : number = this.authService.CurrentUserId();
    
 	this.userService.getKudosOfUser(userId)
@@ -70,30 +53,6 @@ export class HomeComponent implements OnInit {
 
   showRooms(){
     this.clicked=true;
-
-//////////////////// TESTING OF ROOM APIS /////////////////////////
-
-    // this.roomService.getRoom(1);
-    // this.roomService.getAllRooms();
-
-    // let room : Room={
-    //   roomname : 'room10',
-    //   password : 'pass10'
-    // };
-    // this.roomService.addRoom(room);
-
-    // let room : Room={
-    //   id: 3,
-    //   roomname : 'room15',
-    //   password : 'pass15'
-    // };
-    // this.roomService.updateRoom(room);
-
-    // this.roomService.deleteRoom(13);
-    // this.roomService.deleteRoom(14);
-
-//////////////////////////////////////////////////////////////
-
     let userId : number = this.authService.CurrentUserId();
 
     this.userRooms=[];
@@ -117,9 +76,14 @@ export class HomeComponent implements OnInit {
           console.log(this.userRooms);
         }
       });
-      
+     
       console.log(this.userRooms);
     });
+  }
+
+  refresh(){
+    this.showKudos();
+    this.showRooms();
   }
   
 }

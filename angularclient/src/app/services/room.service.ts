@@ -60,27 +60,22 @@ export class RoomService {
   
   updateRoom(room : Room){
     
-    this.http.put(this.url,room,
+    return this.http.put(this.url,room,
       {
         observe : 'response',
         responseType: 'json'
       }
-    ).subscribe(response =>{
-      let room : Room = <Room>response.body;
-      console.log(room);
-    });
+    );
   }
 
   deleteRoom(id: number){
    
-    this.http.delete(this.url + "/" + id,
+    return this.http.delete(this.url + "/" + id,
       {
         observe : 'response',
         responseType: 'text'
       }
-    ).subscribe(response =>{
-      console.log(response);
-    });
+    );
   }
 
   addUserToRoom(userid: number, roomname: string, roomPassword: string) {

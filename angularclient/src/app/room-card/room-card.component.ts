@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { RoomService } from './../services/room.service';
+import { AuthenticationService } from './../services/authentication.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Room } from '../models/room';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,8 +15,11 @@ export class RoomCardComponent implements OnInit {
   closeResult = '';
   
   @Input() theRoom : Room;
+  @Output('userLeft') userLeft = new EventEmitter();
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,
+    private authService: AuthenticationService,
+    private roomService: RoomService) { }
 
   ngOnInit(): void {
   }
@@ -40,4 +46,26 @@ export class RoomCardComponent implements OnInit {
     alert("Sharing "+roomname);
   }
 
+  leaveRoom(){
+    console.log("Leave room");
+    console.log(this.theRoom);
+    for(let i = 0; i < this.theRoom.users.length; i++){
+      if(this.theRoom.users[i].id == this.authService.CurrentUserId()){
+        this.theRoom.users.splice(i, 1);
+        break;
+      }
+    }
+    console.log(this.theRoom);
+    this.roomService.updateRoom(this.theRoom)
+    .subscribe((response: HttpResponse<Room>) => {
+      this.userLeft.emit();
+      this.theRoom = response.body;
+      if(this.theRoom.users == null){
+        this.roomService.deleteRoom(this.theRoom.id)
+        .subscribe((response: HttpResponse<string>) =>{
+          console.log("Deleted Room ", this.theRoom.id);
+        });
+      }
+    });
+  }
 }
