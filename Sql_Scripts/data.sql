@@ -29,5 +29,4 @@ insert into users_kudos values
 insert into rooms_kudos values
 	(1,2),
 	(2,3),
-	(1,1),
-    (2,1);
+	(1,1);
