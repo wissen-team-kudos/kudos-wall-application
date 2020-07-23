@@ -114,13 +114,6 @@ export class RoomModalComponent {
       
       console.log("Creating Room "+room.roomname);
 
-      // this.roomService.addRoom(room)
-      // .subscribe(response =>{
-      //   let room : Room = <Room>response.body;
-      //   console.log(room);
-      //   this.sharedService.roomAdded.next(room);
-      // });
-      
       this.userService.getUser(userId)
       .subscribe(response => {
         let user : User = <User>response.body; 

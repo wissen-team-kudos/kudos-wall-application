@@ -112,22 +112,31 @@ public class UserDAO implements IUserDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		User theUser = currentSession.get(User.class,theID);
 			
-		Set<Kudos> kudos = new HashSet<Kudos>();
-		List<Room> rooms = theUser.getRooms();
-		List<User> usersInRoom= new ArrayList<User>();
-		List<Kudos> kudosOfUser= new ArrayList<Kudos>();
+//		Set<Kudos> kudos = new HashSet<Kudos>();
+//		List<Room> rooms = theUser.getRooms();
+//		List<User> usersInRoom= new ArrayList<User>();
+//		List<Kudos> kudosOfUser= new ArrayList<Kudos>();
+//		
+//		for(Room room:rooms) {
+//			kudos.addAll((room.getKudos()).stream().collect(Collectors.toSet()));
+//			usersInRoom = room.getUsers();
+//			
+//			for(User user: usersInRoom) {
+//				kudosOfUser = user.getKudos();				
+//				kudos.addAll(kudosOfUser.stream().collect(Collectors.toSet()));
+//			}
+//		}
 		
-		for(Room room:rooms) {
-			kudos.addAll((room.getKudos()).stream().collect(Collectors.toSet()));
-			usersInRoom = room.getUsers();
-			
-			for(User user: usersInRoom) {
-				kudosOfUser = user.getKudos();				
-				kudos.addAll(kudosOfUser.stream().collect(Collectors.toSet()));
+//		return kudos.stream().collect(Collectors.toList());
+		List<Kudos> kudosToReturn = new ArrayList<Kudos>();
+		
+		for(Room room : theUser.getRooms()) {
+			for(Kudos kudos : room.getKudos()) {
+				kudosToReturn.add(kudos);
 			}
 		}
 		
-		return kudos.stream().collect(Collectors.toList());
+		return kudosToReturn;
 	}
 	
 

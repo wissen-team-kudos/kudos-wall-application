@@ -18,6 +18,8 @@ export class LoginGuard implements CanActivate {
       this.router.navigate(['/']);
       return false; 
     }
+    console.log(localStorage.getItem('token'));
+    localStorage.clear();
     return true;
     
   }
